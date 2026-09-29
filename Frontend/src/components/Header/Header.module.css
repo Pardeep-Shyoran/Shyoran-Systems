@@ -1,0 +1,162 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250, 249, 245, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--border-main);
+  transition: all 0.2s ease;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.links a {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: color 0.15s ease;
+  position: relative;
+}
+
+.links a:hover {
+  color: var(--accent-blue);
+}
+
+.links a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-blue);
+  transition: width 0.2s ease;
+}
+
+.links a:hover::after {
+  width: 100%;
+}
+
+.links a.activeLink {
+  color: var(--text-main);
+  background: var(--accent-yellow);
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1.5px solid var(--border-main);
+  box-shadow: 2px 2px 0px var(--border-main);
+}
+
+.links a.activeLink::after {
+  display: none;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mobileToggle {
+  display: none;
+  background: #FFFFFF;
+  border: 2px solid var(--border-main);
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0;
+}
+
+.mobileToggle span,
+.mobileToggle span::before,
+.mobileToggle span::after {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: var(--text-main);
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.mobileToggle span::before,
+.mobileToggle span::after {
+  content: "";
+  position: absolute;
+}
+
+.mobileToggle span::before {
+  top: -6px;
+}
+
+.mobileToggle span::after {
+  top: 6px;
+}
+
+.mobileToggle span.toggleOpen {
+  background-color: transparent;
+}
+
+.mobileToggle span.toggleOpen::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+.mobileToggle span.toggleOpen::after {
+  transform: rotate(-45deg);
+  top: 0;
+}
+
+.mobileDropdown {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 24px 20px;
+  background: #FFFFFF;
+  border-bottom: 2px solid var(--border-main);
+  gap: 16px;
+}
+
+.mobileDropdown a {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-main);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.mobileDropdown a.activeMobileLink {
+  background: var(--accent-yellow);
+  border: 1.5px solid var(--border-main);
+  box-shadow: 2px 2px 0px var(--border-main);
+}
+
+@media (max-width: 820px) {
+  .links {
+    display: none;
+  }
+  .mobileToggle {
+    display: flex;
+  }
+}

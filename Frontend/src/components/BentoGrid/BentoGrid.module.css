@@ -1,0 +1,244 @@
+.bentoSection {
+  padding: 70px 0;
+}
+
+.sectionHeader {
+  margin-bottom: 48px;
+}
+
+.sectionSubtitle {
+  font-size: 18px;
+  color: var(--text-muted);
+  max-width: 620px;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.bentoCard {
+  background: var(--bg-card);
+  border: 2px solid var(--border-main);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  padding: 32px 30px;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bentoCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.bentoWide {
+  grid-column: span 2;
+}
+
+.bentoCardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.bentoBadge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  background: var(--accent-yellow);
+  color: var(--text-main);
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1.5px solid var(--border-main);
+}
+
+.bentoTech {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-subtle);
+  font-weight: 600;
+}
+
+.bentoTitle {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.bentoDesc {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+}
+
+/* Interactive Simulator */
+.simBox {
+  background: #F7F5EE;
+  border: 1.5px solid var(--border-main);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 14px;
+}
+
+.simInputRow {
+  display: flex;
+  gap: 10px;
+}
+
+.simInput {
+  flex: 1;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-main);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-main);
+  outline: none;
+}
+
+.simInput:focus {
+  border-color: var(--accent-blue);
+}
+
+.simResults {
+  margin-top: 14px;
+  background: var(--bg-dark);
+  border: 1.5px solid var(--border-main);
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #FFFFFF;
+}
+
+.simResultsHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #1E293B;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  font-size: 11px;
+  color: var(--accent-yellow);
+  font-weight: 700;
+}
+
+.simStepList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #38BDF8;
+}
+
+.simStepItem {
+  font-size: 12px;
+}
+
+.simFooterNotice {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #1E293B;
+  font-size: 12px;
+  color: #A7F3D0;
+}
+
+.bigStatNumber {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 1;
+  color: var(--accent-blue);
+  margin-bottom: 4px;
+}
+
+.bentoPills {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.pillMini {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  background: #EEF2FF;
+  color: var(--accent-blue);
+  border: 1px solid #C7D2FE;
+  padding: 4px 10px;
+  border-radius: 9999px;
+}
+
+.progressBarWrapper {
+  margin-top: 16px;
+}
+
+.progressLabel {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.progressBarTrack {
+  height: 10px;
+  background: #E2E8F0;
+  border: 1.5px solid var(--border-main);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progressBarFillGood {
+  height: 100%;
+  background: var(--accent-green-bright);
+}
+
+.progressBarFillBad {
+  height: 100%;
+  background: #EF4444;
+}
+
+.techPillGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.techTile {
+  background: #FAF9F5;
+  border: 1.5px solid var(--border-main);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  box-shadow: 2px 2px 0px var(--border-main);
+}
+
+@media (max-width: 900px) {
+  .bentoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .bentoWide {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .simInputRow {
+    flex-direction: column;
+  }
+}

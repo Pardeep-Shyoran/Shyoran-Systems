@@ -1,0 +1,224 @@
+.heroSection {
+  padding: 80px 0 60px;
+  position: relative;
+}
+
+.heroBadgeRow {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.stickerHand {
+  font-family: var(--font-hand);
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  transform: rotate(-1.5deg);
+  letter-spacing: 0.02em;
+}
+
+.heroHeadline {
+  font-size: clamp(44px, 7.5vw, 84px);
+  max-width: 980px;
+  line-height: 0.96;
+  margin: 0 0 24px 0;
+  color: var(--text-main);
+}
+
+.heroSubtitle {
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: var(--text-muted);
+  max-width: 660px;
+  line-height: 1.6;
+  margin: 0 0 36px 0;
+}
+
+.heroSubtitle strong {
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+.heroCtaGroup {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.heroTrustMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-subtle);
+  font-weight: 500;
+}
+
+/* INTERACTIVE HERO CODE / ARCHITECTURE DASHBOARD */
+.dashboardContainer {
+  background: var(--bg-dark);
+  border: 2px solid var(--border-main);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.dashboardHeader {
+  background: #141A26;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1.5px solid var(--bg-dark-border);
+}
+
+.windowDots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dotRed, .dotYellow, .dotGreen {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.dotRed { background: #FF5F56; }
+.dotYellow { background: #FFBD2E; }
+.dotGreen { background: #27C93F; }
+
+.dashboardTabs {
+  display: flex;
+  gap: 6px;
+}
+
+.dashTab {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  background: transparent;
+  color: #7E89A0;
+  border: 1px solid transparent;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dashTab:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dashTabActive {
+  background: #1C2436;
+  color: var(--accent-yellow);
+  border-color: #2D3952;
+}
+
+.copyButton {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.08);
+  color: #CBD5E1;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.copyButton:hover {
+  background: var(--accent-blue);
+  color: #FFFFFF;
+  border-color: var(--accent-blue);
+}
+
+.dashboardBody {
+  padding: 24px 28px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  color: #E2E8F0;
+  overflow-x: auto;
+  max-height: 380px;
+}
+
+.dashboardBody pre {
+  margin: 0;
+  white-space: pre;
+}
+
+.dashboardFooter {
+  background: #0D121B;
+  border-top: 1px solid var(--bg-dark-border);
+  padding: 10px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.liveMetricsPill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-green-bright);
+}
+
+.beaconDot {
+  width: 7px;
+  height: 7px;
+  background: var(--accent-green-bright);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent-green-bright);
+  animation: pulseBeacon 1.8s infinite ease-in-out;
+}
+
+.engineLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #64748B;
+  font-weight: 600;
+}
+
+@keyframes pulseBeacon {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroSection {
+    padding: 48px 0 36px;
+  }
+
+  .dashboardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .dashboardTabs {
+    width: 100%;
+    overflow-x: auto;
+  }
+}

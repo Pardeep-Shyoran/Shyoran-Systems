@@ -1,0 +1,153 @@
+.comparisonSection {
+  padding: 70px 0;
+}
+
+.sectionHeader {
+  margin-bottom: 48px;
+}
+
+.sectionSubtitle {
+  font-size: 18px;
+  color: var(--text-muted);
+  max-width: 620px;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+.compareGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.compareCardBad, .compareCardGood {
+  border-radius: 16px;
+  border: 2px solid var(--border-main);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  background: var(--bg-card);
+  transition: transform 0.2s ease;
+}
+
+.compareCardBad:hover, .compareCardGood:hover {
+  transform: translateY(-2px);
+}
+
+.compareCardHead {
+  background: #FEE2E2;
+  border-bottom: 2px solid var(--border-main);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.crossIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #EF4444;
+  color: #FFFFFF;
+  font-weight: 900;
+  font-size: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-main);
+}
+
+.cardHeaderTitle {
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: 0.03em;
+  color: #991B1B;
+}
+
+.compareCardHeadGood {
+  background: var(--accent-yellow);
+  border-bottom: 2px solid var(--border-main);
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.checkIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--accent-blue);
+  color: #FFFFFF;
+  font-weight: 900;
+  font-size: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-main);
+}
+
+.cardHeaderTitleGood {
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: 0.03em;
+  color: var(--text-main);
+}
+
+.popBadge {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  background: #000000;
+  color: #FFFFFF;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  letter-spacing: 0.05em;
+}
+
+.compareList {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.compareItem {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.compareItem strong {
+  font-size: 16px;
+  color: var(--text-main);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.compareItem p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.itemIconCross {
+  color: #EF4444;
+  font-weight: 900;
+  font-size: 18px;
+  min-width: 20px;
+}
+
+.itemIconCheck {
+  color: var(--accent-green);
+  font-weight: 900;
+  font-size: 18px;
+  min-width: 20px;
+}
+
+@media (max-width: 900px) {
+  .compareGrid {
+    grid-template-columns: 1fr;
+  }
+}

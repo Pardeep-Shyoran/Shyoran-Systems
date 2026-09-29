@@ -1,0 +1,71 @@
+.logo {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text-main);
+  transition: transform 0.15s ease;
+}
+
+.logo:hover {
+  transform: translateY(-1px);
+}
+
+.badgeIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--accent-yellow);
+  border: 1.5px solid var(--border-main);
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 2px 2px 0px var(--border-main);
+}
+
+.brandName {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.highlight {
+  color: var(--accent-blue);
+  margin-left: 2px;
+}
+
+.statusPill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  background: #000000;
+  color: #FFFFFF;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  letter-spacing: 0.05em;
+}
+
+/* Inverted / Dark Mode Styles */
+.logo.inverted {
+  color: #FFFFFF;
+}
+
+.logo.inverted .badgeIcon {
+  border-color: #0A0D14;
+  box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.35);
+}
+
+.logo.inverted .highlight {
+  color: #4D88FF;
+}
+
+.logo.inverted .statusPill {
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}

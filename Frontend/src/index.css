@@ -1,0 +1,246 @@
+:root {
+  /* Fonts */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-hand: 'Caveat', cursive;
+
+  /* Colors */
+  --bg-canvas: #FAF9F5;
+  --bg-card: #FFFFFF;
+  --bg-dark: #0A0D14;
+  --bg-dark-card: #121722;
+  --bg-dark-border: #1E2738;
+  
+  --text-main: #0A0D14;
+  --text-muted: #525866;
+  --text-subtle: #7E8695;
+  --text-inverse: #FFFFFF;
+
+  --accent-blue: #0038FF;
+  --accent-blue-hover: #0028CC;
+  --accent-blue-light: #EBF1FF;
+  
+  --accent-yellow: #FFE600;
+  --accent-yellow-light: #FFF9D2;
+  
+  --accent-green: #059669;
+  --accent-green-bright: #00E676;
+  --accent-green-light: #E6FBF2;
+  
+  --accent-red: #EF4444;
+  --accent-red-light: #FEE2E2;
+
+  --border-main: #0A0D14;
+  --border-subtle: #E2DFD5;
+  --border-dark: #222938;
+
+  /* Brutalist Shadows */
+  --shadow-sm: 2px 2px 0px #0A0D14;
+  --shadow-md: 4px 4px 0px #0A0D14;
+  --shadow-lg: 6px 6px 0px #0A0D14;
+  --shadow-yellow: 4px 4px 0px #0A0D14;
+  --shadow-blue: 4px 4px 0px #0038FF;
+
+  --max: 1200px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-canvas);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+
+.display-title {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 0.95;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.hand {
+  font-family: var(--font-hand);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img, svg {
+  display: block;
+}
+
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 0 20px;
+  }
+}
+
+/* Global Brutalist Button Utilities */
+.btn-brutal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 15px;
+  padding: 13px 26px;
+  border: 2px solid var(--border-main);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-brutal-primary {
+  background: var(--accent-blue);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-brutal-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+  background: var(--accent-blue-hover);
+}
+
+.btn-brutal-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-brutal-yellow {
+  background: var(--accent-yellow);
+  color: var(--text-main);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-brutal-yellow:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-brutal-yellow:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-brutal-outline {
+  background: #FFFFFF;
+  color: var(--text-main);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-brutal-outline:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+  background: #F8F7F2;
+}
+
+.btn-brutal-outline:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Badges */
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  border: 1.5px solid var(--border-main);
+  box-shadow: 2px 2px 0px var(--border-main);
+}
+
+/* Highlighter effect */
+.highlight-yellow {
+  background: var(--accent-yellow);
+  padding: 0 8px;
+  display: inline-block;
+  transform: rotate(-1deg);
+  border: 1.5px solid var(--border-main);
+  box-shadow: 2px 2px 0px var(--border-main);
+  color: var(--text-main);
+}
+
+/* Reveal Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Custom Text Selection */
+::selection {
+  background-color: var(--accent-yellow);
+  color: #000000;
+}
+
+::-moz-selection {
+  background-color: var(--accent-yellow);
+  color: #000000;
+}
+
+/* Ticker Marquee Keyframes */
+@keyframes marqueeLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marqueeLeft 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

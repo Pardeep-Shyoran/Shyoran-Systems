@@ -1,0 +1,75 @@
+.processSection {
+  padding: 70px 0;
+}
+
+.sectionHeader {
+  margin-bottom: 48px;
+}
+
+.sectionSubtitle {
+  font-size: 18px;
+  color: var(--text-muted);
+  max-width: 620px;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+.processTimeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.processCard {
+  background: var(--bg-card);
+  border: 2px solid var(--border-main);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  padding: 32px 26px;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.processCard:hover {
+  transform: translateY(-2px);
+}
+
+.stepNumBadge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  background: var(--accent-blue);
+  color: #FFFFFF;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1.5px solid var(--border-main);
+  margin-bottom: 12px;
+}
+
+.stepTimeline {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-subtle);
+  margin-bottom: 14px;
+}
+
+.stepTitle {
+  font-size: 21px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.stepText {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .processTimeline {
+    grid-template-columns: 1fr;
+  }
+}
