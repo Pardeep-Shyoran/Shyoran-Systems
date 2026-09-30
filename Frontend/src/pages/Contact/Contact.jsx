@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import { useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import { BoltIcon } from '../../components/Icons/Icons';
 import styles from './Contact.module.css';
 
 const SCOPE_OPTIONS = [
-  'MVP from Scratch',
-  'AI Integration / RAG',
-  'Full-Stack Redesign',
-  'API & Cloud Scale',
-  'Technical Advisory'
+  'Full-Stack MERN App',
+  'AI / LLM Integration & Chatbots',
+  'E-Commerce & Payment Systems',
+  'Real-Time Collaboration & Messaging',
+  'API Design & Cloud Deployment (AWS)',
+  'Architecture & Performance Audit'
 ];
 
 const BUDGET_OPTIONS = [
@@ -28,7 +31,15 @@ const TIMELINE_OPTIONS = [
 ];
 
 const Contact = () => {
-  const [selectedScopes, setSelectedScopes] = useState(['MVP from Scratch']);
+  const [searchParams] = useSearchParams();
+  const urlScope = searchParams.get('scope');
+
+  const [selectedScopes, setSelectedScopes] = useState(() => {
+    if (urlScope && SCOPE_OPTIONS.includes(urlScope)) {
+      return [urlScope];
+    }
+    return ['Full-Stack MERN App'];
+  });
   const [selectedBudget, setSelectedBudget] = useState('$5,000 - $10,000');
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [currentTimeIST, setCurrentTimeIST] = useState('');
@@ -127,8 +138,9 @@ const Contact = () => {
                 <span className={styles.pulseDot}></span>
                 <span>SYSTEMS ONLINE · ACCEPTING 2 BUILDS FOR Q1/Q2 2026</span>
               </div>
-              <span className={`${styles.handSticker} hand`}>
-                Average response time: &lt; 4 hours ⚡
+              <span className={`${styles.handSticker} hand`} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                <span>Average response time: &lt; 4 hours</span>
+                <BoltIcon size={12} />
               </span>
             </div>
 
@@ -203,14 +215,14 @@ const Contact = () => {
                     {currentTimeIST || '17:30:00'} <span style={{ fontSize: '16px', color: '#94A3B8' }}>IST (UTC+5:30)</span>
                   </div>
                   <p className={styles.timeSub}>
-                    Base operations located in India · Serving clients across US, UK, Europe &amp; Global.
+                    Studio in Sirsa, Haryana 125103, India · Serving founders &amp; teams across US, Europe &amp; Global remote.
                   </p>
                 </div>
 
                 {/* Channel 4: 3-Step Turnaround SLA */}
                 <div className={styles.slaCard}>
                   <div className={styles.slaTitle}>
-                    <span>⚡</span>
+                    <span><BoltIcon size={13} /></span>
                     <span>TURNAROUND SLA GUARANTEE</span>
                   </div>
                   <div className={styles.slaSteps}>
@@ -260,8 +272,10 @@ const Contact = () => {
                       <button 
                         className="btn-brutal btn-brutal-yellow resetBtn" 
                         onClick={handleResetForm}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                       >
-                        SUBMIT ANOTHER SPECIFICATION ⚡
+                        <span>SUBMIT ANOTHER SPECIFICATION</span>
+                        <BoltIcon size={14} />
                       </button>
                     </div>
                   </div>
@@ -400,8 +414,16 @@ const Contact = () => {
                       type="submit"
                       disabled={isSubmitting}
                       className={`btn-brutal btn-brutal-primary ${styles.submitBtn}`}
+                      style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
                     >
-                      {isSubmitting ? 'TRANSMITTING SPECIFICATION...' : 'DISPATCH SPECIFICATION ⚡'}
+                      {isSubmitting ? (
+                        'TRANSMITTING SPECIFICATION...'
+                      ) : (
+                        <>
+                          <span>DISPATCH SPECIFICATION</span>
+                          <BoltIcon size={14} />
+                        </>
+                      )}
                     </button>
                   </form>
                 )}

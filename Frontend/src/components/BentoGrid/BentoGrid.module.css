@@ -225,6 +225,9 @@
   font-weight: 600;
   color: var(--text-main);
   box-shadow: 2px 2px 0px var(--border-main);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 @media (max-width: 900px) {

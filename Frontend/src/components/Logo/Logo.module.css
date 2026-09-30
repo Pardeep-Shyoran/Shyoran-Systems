@@ -25,6 +25,7 @@
   border: 1.5px solid var(--border-main);
   border-radius: 8px;
   font-size: 14px;
+  color: #0A0D14;
   box-shadow: 2px 2px 0px var(--border-main);
 }
 

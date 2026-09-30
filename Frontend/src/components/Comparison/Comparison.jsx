@@ -1,3 +1,4 @@
+import { CheckIcon, CrossIcon } from '../Icons/Icons';
 import styles from './Comparison.module.css';
 
 const Comparison = () => {
@@ -20,33 +21,43 @@ const Comparison = () => {
           {/* Card 1: Traditional Agency */}
           <div className={styles.compareCardBad}>
             <div className={styles.compareCardHead}>
-              <span className={styles.crossIcon}>✕</span>
+              <span className={styles.crossIcon}>
+                <CrossIcon size={14} />
+              </span>
               <span className={styles.cardHeaderTitle}>THE TRADITIONAL AGENCY</span>
             </div>
             <div className={styles.compareList}>
               <div className={styles.compareItem}>
-                <span className={styles.itemIconCross}>✕</span>
+                <span className={styles.itemIconCross}>
+                  <CrossIcon size={16} />
+                </span>
                 <div>
                   <strong>6-8 weeks of kickoff discovery</strong>
                   <p>Endless Figma mockups, scope negotiations, and slide presentations before writing one line of code.</p>
                 </div>
               </div>
               <div className={styles.compareItem}>
-                <span className={styles.itemIconCross}>✕</span>
+                <span className={styles.itemIconCross}>
+                  <CrossIcon size={16} />
+                </span>
                 <div>
                   <strong>4 layers of middle managers</strong>
                   <p>Your requests get filtered through account managers, PMs, and outsourced junior developers.</p>
                 </div>
               </div>
               <div className={styles.compareItem}>
-                <span className={styles.itemIconCross}>✕</span>
+                <span className={styles.itemIconCross}>
+                  <CrossIcon size={16} />
+                </span>
                 <div>
                   <strong>$30k-$60k bloated retainers</strong>
                   <p>You pay for agency office rent, account reps, and corporate overhead rather than code engineering.</p>
                 </div>
               </div>
               <div className={styles.compareItem}>
-                <span className={styles.itemIconCross}>✕</span>
+                <span className={styles.itemIconCross}>
+                  <CrossIcon size={16} />
+                </span>
                 <div>
                   <strong>Delayed milestones &amp; finger-pointing</strong>
                   <p>Sprint timelines slip repeatedly while budget overruns get billed back to you.</p>
@@ -58,34 +69,44 @@ const Comparison = () => {
           {/* Card 2: The Shyoran Systems Way */}
           <div className={styles.compareCardGood}>
             <div className={styles.compareCardHeadGood}>
-              <span className={styles.checkIcon}>✓</span>
+              <span className={styles.checkIcon}>
+                <CheckIcon size={14} />
+              </span>
               <span className={styles.cardHeaderTitleGood}>THE SHYORAN SYSTEMS WAY</span>
               <span className={styles.popBadge}>VELOCITY WINNER</span>
             </div>
             <div className={styles.compareList}>
               <div className={styles.compareItem}>
-                <span className={styles.itemIconCheck}>✓</span>
+                <span className={styles.itemIconCheck}>
+                  <CheckIcon size={16} />
+                </span>
                 <div>
                   <strong>First working build in Week 1</strong>
                   <p>Staging URLs with live auth, database schemas, and interactive UI deployed right away.</p>
                 </div>
               </div>
               <div className={styles.compareItem}>
-                <span className={styles.itemIconCheck}>✓</span>
+                <span className={styles.itemIconCheck}>
+                  <CheckIcon size={16} />
+                </span>
                 <div>
                   <strong>Direct 1-on-1 with Lead Engineer</strong>
                   <p>Direct Slack or WhatsApp channel with Pardeep. Instant answers, rapid decisions, zero bureaucracy.</p>
                 </div>
               </div>
               <div className={styles.compareItem}>
-                <span className={styles.itemIconCheck}>✓</span>
+                <span className={styles.itemIconCheck}>
+                  <CheckIcon size={16} />
+                </span>
                 <div>
                   <strong>Modern AI-Augmented Velocity</strong>
                   <p>Leveraging state-of-the-art coding workflows to build 3x faster without compromising code quality.</p>
                 </div>
               </div>
               <div className={styles.compareItem}>
-                <span className={styles.itemIconCheck}>✓</span>
+                <span className={styles.itemIconCheck}>
+                  <CheckIcon size={16} />
+                </span>
                 <div>
                   <strong>Fixed scope &amp; guaranteed delivery</strong>
                   <p>Clear milestones, predictable pricing, and 100% full intellectual property transfer on day 1.</p>

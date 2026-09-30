@@ -70,3 +70,13 @@
     padding: 48px 20px;
   }
 }
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-green-bright);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px var(--accent-green-bright);
+  flex-shrink: 0;
+}

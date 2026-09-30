@@ -1,90 +1,517 @@
 .tracksSection {
-  padding: 70px 0;
+  padding: 80px 0 90px;
+  position: relative;
 }
 
+/* Header & Section Title */
 .sectionHeader {
-  margin-bottom: 48px;
+  margin-bottom: 36px;
+}
+
+.headerTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.capacityPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-main);
+  border-radius: 9999px;
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 2px 2px 0px var(--border-main);
+}
+
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-green-bright);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 6px rgba(0, 230, 118, 0.8);
+}
+
+.sectionTitle {
+  font-size: clamp(32px, 5vw, 54px);
+  margin-top: 10px;
 }
 
 .sectionSubtitle {
   font-size: 18px;
   color: var(--text-muted);
-  max-width: 620px;
-  margin-top: 12px;
-  line-height: 1.6;
+  max-width: 680px;
+  margin-top: 10px;
+  line-height: 1.5;
 }
 
-.tracksGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
+/* Tab Selector Bar */
+.tabBar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 24px;
+  scrollbar-width: thin;
 }
 
-.trackCard {
-  background: var(--bg-card);
+.tabBtn {
+  background: #FFFFFF;
+  border: 2px solid var(--border-main);
+  border-radius: 9999px;
+  padding: 10px 20px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 2px 2px 0px var(--border-main);
+  color: var(--text-main);
+}
+
+.tabBtn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px var(--border-main);
+  background: #FAF9F5;
+}
+
+.tabBtnActive {
+  background: var(--accent-yellow);
+  box-shadow: 3px 3px 0px var(--border-main);
+  transform: translate(-1px, -1px);
+}
+
+.tabIndex {
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1;
+  background: var(--text-main);
+  color: #FFFFFF;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.tabBtnActive .tabIndex {
+  background: #000000;
+  color: var(--accent-yellow);
+}
+
+/* The Main Command Console Card */
+.consoleCard {
+  background: #FFFFFF;
   border: 2px solid var(--border-main);
   border-radius: 16px;
-  box-shadow: var(--shadow-md);
-  padding: 32px 26px;
-  display: flex;
-  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  margin-bottom: 32px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.trackCard:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lg);
-}
-
-.trackHeader {
+.consoleHeader {
+  background: var(--bg-canvas);
+  border-bottom: 2px solid var(--border-main);
+  padding: 18px 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
-.trackNum {
+.consoleHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.consoleTrackNum {
   font-family: var(--font-display);
-  font-size: 38px;
-  color: var(--accent-blue);
+  font-size: 28px;
   line-height: 1;
+  background: var(--accent-blue);
+  color: #FFFFFF;
+  padding: 4px 10px;
+  border-radius: 4px;
 }
 
-.trackBadge {
+.consoleTagline {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-main);
+}
+
+.consoleBadges {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.flagshipBadge {
+  background: var(--accent-yellow);
+  color: #000000;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 800;
-  background: #000000;
-  color: #FFFFFF;
-  padding: 4px 10px;
+  padding: 5px 10px;
+  border: 1.5px solid var(--border-main);
   border-radius: 9999px;
-  letter-spacing: 0.05em;
+  box-shadow: 2px 2px 0px var(--border-main);
+}
+
+.trackPill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  border: 1.5px solid var(--border-main);
+}
+
+/* Split Console Body */
+.consoleBody {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  min-height: 480px;
+}
+
+@media (max-width: 960px) {
+  .consoleBody {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Left Dossier Column */
+.dossierCol {
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 2px solid var(--border-main);
+}
+
+@media (max-width: 960px) {
+  .dossierCol {
+    border-right: none;
+    border-bottom: 2px solid var(--border-main);
+    padding: 24px 20px;
+  }
 }
 
 .trackTitle {
-  font-size: 21px;
-  font-weight: 700;
-  margin-bottom: 12px;
+  font-size: clamp(26px, 3.5vw, 36px);
+  margin-bottom: 10px;
 }
 
 .trackDesc {
-  font-size: 14.5px;
+  font-size: 16px;
+  line-height: 1.6;
   color: var(--text-muted);
-  line-height: 1.5;
-  margin: 0 0 20px 0;
+  margin-bottom: 24px;
 }
 
-.trackFeatures {
+/* Micro Specs Grid (Turnaround, Ideal For, IP, Cadence) */
+.specsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 540px) {
+  .specsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.specTile {
+  background: #FAF9F5;
+  border: 1.5px solid var(--border-main);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.specLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.specVal {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* Deliverables checklist */
+.deliverablesBox {
+  margin-bottom: 24px;
+}
+
+.deliverablesTitle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.deliverablesList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 28px;
-  flex: 1;
+  gap: 8px;
 }
 
-.featItem {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--text-main);
+.deliverableItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 14px;
   font-weight: 500;
+  color: var(--text-main);
+}
+
+.checkIcon {
+  color: var(--accent-green);
+  font-weight: 800;
+  font-family: var(--font-mono);
+}
+
+/* Tech badges */
+.techPillsGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 28px;
+}
+
+.techPill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-main);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+/* CTA Row */
+.ctaRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+}
+
+/* Right Terminal Rig Column */
+.terminalCol {
+  background: var(--bg-dark);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+}
+
+.terminalBar {
+  background: var(--bg-dark-card);
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--bg-dark-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.terminalDots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.terminalTabTitle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #94A3B8;
+  letter-spacing: 0.04em;
+}
+
+.terminalCopyBtn {
+  background: transparent;
+  border: 1px solid var(--bg-dark-border);
+  color: #94A3B8;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.terminalCopyBtn:hover {
+  background: #1E2738;
+  color: #FFFFFF;
+}
+
+.codeArea {
+  padding: 22px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: #E2E8F0;
+  flex: 1;
+  overflow-x: auto;
+}
+
+.codePre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Terminal Metrics Bar */
+.metricsFooter {
+  border-top: 1px solid var(--bg-dark-border);
+  background: #06090F;
+  padding: 16px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #94A3B8;
+}
+
+.metricItem strong {
+  color: var(--accent-yellow);
+}
+
+/* Bottom Quick-Switch Ribbon */
+.ribbonSection {
+  margin-top: 16px;
+}
+
+.ribbonHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.ribbonLabel {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.ribbonGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .ribbonGrid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+.ribbonCard {
+  background: #FFFFFF;
+  border: 2px solid var(--border-main);
+  border-radius: 10px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 2px 2px 0px var(--border-main);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.ribbonCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px var(--border-main);
+}
+
+.ribbonCardActive {
+  background: var(--accent-yellow-light);
+  border-color: var(--border-main);
+  box-shadow: 4px 4px 0px var(--border-main);
+  transform: translateY(-2px);
+}
+
+.ribbonTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.ribbonNum {
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1;
+  color: var(--accent-blue);
+}
+
+.ribbonCardActive .ribbonNum {
+  color: #000000;
+}
+
+.ribbonTag {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border-main);
+  background: #FFFFFF;
+}
+
+.ribbonTitle {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-main);
+}
+
+.ribbonTimeline {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 6px;
 }

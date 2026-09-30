@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { BoltIcon, MailIcon, PinIcon } from '../Icons/Icons';
 import styles from './MonolithCta.module.css';
 
 const MonolithCta = () => {
@@ -7,7 +8,7 @@ const MonolithCta = () => {
       <div className="wrap">
         <div className={`${styles.monolithBox} reveal`}>
           <div className={styles.monolithBadge}>
-            <span>⚡</span>
+            <BoltIcon size={13} />
             <span>ACCEPTING BUILDS FOR THIS QUARTER</span>
           </div>
 
@@ -24,16 +25,23 @@ const MonolithCta = () => {
             <Link 
               to="/contact"
               className="btn-brutal btn-brutal-yellow" 
-              style={{ fontSize: '17px', padding: '16px 36px' }} 
+              style={{ fontSize: '17px', padding: '16px 36px', display: 'inline-flex', alignItems: 'center', gap: '8px' }} 
             >
-              START A CONVERSATION ⚡
+              <span>START A CONVERSATION</span>
+              <BoltIcon size={16} />
             </Link>
           </div>
 
           <div className={styles.monolithMeta}>
-            <span>✉️ hello@pardeep-shyoran.me</span>
-            <span>📍 Sirsa, Haryana, India</span>
-            <span>🟢 Current Status: Online &amp; Scoping Builds</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <MailIcon size={14} /> hello@pardeep-shyoran.me
+            </span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <PinIcon size={14} /> Sirsa, Haryana, India
+            </span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+              <span className={styles.liveDot}></span> Current Status: Online &amp; Scoping Builds
+            </span>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import { CrossIcon, BoltIcon } from '../../components/Icons/Icons';
 import styles from './PageNotFound.module.css';
 
 const PageNotFound = () => {
@@ -22,7 +23,7 @@ const PageNotFound = () => {
             {/* BADGE ROW */}
             <div className={styles.badgeRow}>
               <div className="badge-pill" style={{ background: '#FF4D4D', color: '#FFFFFF' }}>
-                <span>✕</span>
+                <span><CrossIcon size={12} /></span>
                 <span>ERROR 404 // NULL ROUTE</span>
               </div>
               <div className={`${styles.stickerHand} hand`}>
@@ -66,8 +67,9 @@ const PageNotFound = () => {
 
             {/* ACTION CTAs */}
             <div className={styles.ctaGroup}>
-              <Link to="/" className="btn-brutal btn-brutal-primary">
-                RETURN TO HOMEPAGE ⚡
+              <Link to="/" className="btn-brutal btn-brutal-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                <span>RETURN TO HOMEPAGE</span>
+                <BoltIcon size={14} />
               </Link>
               <a 
                 href={`mailto:hello@pardeep-shyoran.me?subject=404 Broken Link Report: ${location.pathname}`} 

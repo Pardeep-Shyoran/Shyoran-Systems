@@ -1,4 +1,15 @@
 import { useState } from 'react';
+import {
+  ReactLogo,
+  NodeLogo,
+  MongoLogo,
+  AILogo,
+  SocketLogo,
+  StripeLogo,
+  DockerLogo,
+  AwsLogo,
+  BoltIcon
+} from '../Icons/Icons';
 import styles from './BentoGrid.module.css';
 
 const BentoGrid = () => {
@@ -69,7 +80,11 @@ const BentoGrid = () => {
                   className="btn-brutal btn-brutal-yellow"
                   style={{ padding: '8px 18px', fontSize: '13px' }}
                 >
-                  {isSimulating ? 'SIMULATING...' : 'RUN PIPELINE ⚡'}
+                  {isSimulating ? 'SIMULATING...' : (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                      RUN PIPELINE <BoltIcon size={13} />
+                    </span>
+                  )}
                 </button>
               </div>
 
@@ -140,20 +155,46 @@ const BentoGrid = () => {
           {/* Bento Card 4: Production Ready Stack */}
           <div className={`${styles.bentoCard} ${styles.bentoWide}`}>
             <div className={styles.bentoCardHead}>
-              <div className={styles.bentoBadge}>BATTLE-TESTED INFRASTRUCTURE</div>
-              <span className={styles.bentoTech}>AWS · Docker · Cloudflare · MongoDB</span>
+              <div className={styles.bentoBadge}>BATTLE-TESTED MERN + AI INFRASTRUCTURE</div>
+              <span className={styles.bentoTech}>MongoDB · Express · React · Node · AWS</span>
             </div>
-            <h3 className={styles.bentoTitle}>Enterprise-Grade Performance Out of the Box</h3>
+            <h3 className={styles.bentoTitle}>Enterprise-Grade MERN Architecture Out of the Box</h3>
             <p className={styles.bentoDesc}>
-              We deliver scalable architectures built to survive product launch traffic: containerized microservices, indexed databases, rate limiting, and end-to-end security.
+              We deliver scalable architectures built to survive product launch traffic: containerized MERN microservices, indexed MongoDB schemas, sub-second WebSocket sync, rate limiting, and end-to-end security.
             </p>
             <div className={styles.techPillGrid}>
-              <div className={styles.techTile}>⚡ React 19 Frontend</div>
-              <div className={styles.techTile}>🛡️ Node.js + Express API</div>
-              <div className={styles.techTile}>💾 MongoDB &amp; PostgreSQL</div>
-              <div className={styles.techTile}>🤖 Claude &amp; OpenAI SDKs</div>
-              <div className={styles.techTile}>🐳 Docker Containerization</div>
-              <div className={styles.techTile}>☁️ AWS ECS &amp; S3 Storage</div>
+              <div className={styles.techTile}>
+                <ReactLogo size={20} />
+                <span>React 19 Frontend</span>
+              </div>
+              <div className={styles.techTile}>
+                <NodeLogo size={20} />
+                <span>Node.js + Express API</span>
+              </div>
+              <div className={styles.techTile}>
+                <MongoLogo size={20} />
+                <span>MongoDB Atlas Clusters</span>
+              </div>
+              <div className={styles.techTile}>
+                <AILogo size={20} />
+                <span>Claude &amp; OpenAI SDKs</span>
+              </div>
+              <div className={styles.techTile}>
+                <SocketLogo size={20} />
+                <span>Socket.io &amp; WebSockets</span>
+              </div>
+              <div className={styles.techTile}>
+                <StripeLogo size={20} />
+                <span>Stripe &amp; Razorpay Payments</span>
+              </div>
+              <div className={styles.techTile}>
+                <DockerLogo size={20} />
+                <span>Docker Containerization</span>
+              </div>
+              <div className={styles.techTile}>
+                <AwsLogo size={20} />
+                <span>AWS ECS &amp; CloudFront CDN</span>
+              </div>
             </div>
           </div>
         </div>

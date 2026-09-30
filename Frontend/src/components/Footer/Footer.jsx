@@ -17,10 +17,11 @@ const Footer = () => {
             <div className={styles.navCol}>
               <span className={styles.colTitle}>// NAVIGATION</span>
               <Link to="/">Home</Link>
+              <Link to="/services">Services (5 Pillars)</Link>
               <Link to="/about">About Us</Link>
-              <a href="/#tracks">Tracks & Work</a>
+              <a href="/#tracks">Tracks &amp; Work</a>
               <a href="/#bento">Engineering</a>
-              <Link to="/contact">Contact & Scope</Link>
+              <Link to="/contact">Contact &amp; Scope</Link>
             </div>
             <div className={styles.navCol}>
               <span className={styles.colTitle}>// CONNECT</span>

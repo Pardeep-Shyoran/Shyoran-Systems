@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import { BoltIcon, PenIcon } from '../../components/Icons/Icons';
 import styles from './About.module.css';
 
 const terminalSnippets = {
@@ -10,22 +11,30 @@ const terminalSnippets = {
 # Lead Systems Architect Dossier
 NAME="Pardeep Shyoran"
 TITLE="Lead Architect & Founder @ Shyoran Systems"
-LOCATION="India · Remote Worldwide"
-CORE_FOCUS="Full-Stack Web (MERN) · Autonomous AI Agents · Scalable Systems"
+LOCATION="Sirsa, Haryana 125103, India · Remote Worldwide"
+CORE_FOCUS="Full-Stack MERN (React, Node, Express, MongoDB) · AI/LLM Integration · Real-Time Web"
 
 STATUS="Available for selective high-impact builds (Q1/Q2 2026)"
 UPTIME="6+ Years continuous production engineering"
 PHILOSOPHY="Ship working software in days, not slide decks in months."`,
 
   'stack.json': `{
+  "studio": "Shyoran Systems",
+  "specialization": "MERN Stack (MongoDB, Express, React, Node.js)",
+  "what_we_do": [
+    "Full-stack web app development (React, Node.js, MongoDB, Express)",
+    "AI/LLM integration — chatbots, automation, and generative AI features",
+    "E-commerce platforms with secure auth, payments, and admin dashboards",
+    "Real-time systems — messaging, live collaboration, and notifications",
+    "API design, cloud deployment (AWS), and third-party integrations"
+  ],
   "core_stack": {
-    "frontend": ["React 19", "Vite", "Next.js", "TypeScript", "CSS Modules"],
-    "backend": ["Node.js", "Express", "FastAPI", "MongoDB", "PostgreSQL", "Redis"],
-    "ai_native": ["OpenAI API", "Anthropic Claude", "LangChain", "Vector RAG", "Autonomous Agents"],
-    "infrastructure": ["Docker", "AWS (ECS, S3, CloudFront)", "Linux", "CI/CD Workflows"]
+    "mern": ["React 19", "Node.js (LTS)", "Express", "MongoDB Atlas"],
+    "realtime_and_commerce": ["Socket.io", "WebSockets", "Stripe API", "Razorpay", "Redis"],
+    "ai_layer": ["OpenAI API", "Anthropic Claude", "LangChain", "Atlas Vector Search", "RAG"],
+    "cloud": ["AWS (ECS, S3, CloudFront)", "Docker", "GitHub Actions CI/CD"]
   },
-  "deployment_cadence": "Weekly production releases",
-  "average_mvp_turnaround": "2 to 4 weeks"
+  "value_prop": "Lean workflows & fast turnaround — for founders who need real software."
 }`,
 
   'principles.md': `# Engineering Operating Principles
@@ -46,20 +55,20 @@ const techInventory = [
   { name: 'Vite & Next.js', category: 'frontend', tag: 'Bundler/SSR', desc: 'Lightning-fast HMR and production server-rendered workflows.' },
   { name: 'CSS Modules', category: 'frontend', tag: 'Styling', desc: 'Scoped, maintainable neo-brutalist styling without bundle bloat.' },
 
-  { name: 'Node.js & Express', category: 'backend', tag: 'Runtime', desc: 'High-throughput asynchronous REST & GraphQL APIs.' },
-  { name: 'MongoDB & Mongoose', category: 'backend', tag: 'NoSQL Data', desc: 'Flexible document schemas, aggregation pipelines, and indexing.' },
-  { name: 'PostgreSQL & Redis', category: 'backend', tag: 'SQL / Cache', desc: 'Relational data integrity paired with sub-millisecond caching.' },
-  { name: 'FastAPI / Python', category: 'backend', tag: 'Microservices', desc: 'Async microservices tailored for data processing and AI pipelines.' },
+  { name: 'Node.js & Express', category: 'backend', tag: 'MERN Core', desc: 'High-throughput asynchronous REST & GraphQL APIs with input validation.' },
+  { name: 'MongoDB Atlas & Mongoose', category: 'backend', tag: 'MERN Database', desc: 'Flexible document schemas, aggregation pipelines, and compound indexing.' },
+  { name: 'Socket.io & WebSockets', category: 'backend', tag: 'Real-Time', desc: 'Live messaging, collaboration rooms, presence detection, and state sync.' },
+  { name: 'PostgreSQL & Redis', category: 'backend', tag: 'SQL / Cache', desc: 'Relational data integrity paired with sub-millisecond caching and pub/sub.' },
 
-  { name: 'OpenAI & Claude API', category: 'ai', tag: 'LLM Foundations', desc: 'Prompt engineering, structured outputs, and real-time streaming.' },
-  { name: 'LangChain & RAG', category: 'ai', tag: 'Knowledge Retrieval', desc: 'Context-augmented vector retrieval over proprietary enterprise data.' },
-  { name: 'Vector DBs (Pinecone/Chroma)', category: 'ai', tag: 'Semantic Search', desc: 'High-dimensional embeddings for recommendations and fast search.' },
-  { name: 'AI Coding Agents', category: 'ai', tag: 'Autonomous Ops', desc: 'Automated synthesis, test generation, and intelligent pipelines.' },
+  { name: 'OpenAI & Claude SDKs', category: 'ai', tag: 'LLM Foundations', desc: 'Chatbots, structured outputs, tool agents, and real-time streaming.' },
+  { name: 'LangChain & Vector RAG', category: 'ai', tag: 'Knowledge Retrieval', desc: 'Context-augmented retrieval over proprietary databases via Atlas Vector & Pinecone.' },
+  { name: 'Stripe & Razorpay', category: 'backend', tag: 'Payments', desc: 'Secure checkout sessions, customer subscriptions, and webhook reconciliation.' },
+  { name: 'AI Autonomous Agents', category: 'ai', tag: 'Autonomous Ops', desc: 'Automated synthesis, background pipeline execution, and self-evaluating workflows.' },
 
-  { name: 'Docker Containers', category: 'devops', tag: 'Containerization', desc: 'Consistent container environments from local dev to production.' },
-  { name: 'AWS Cloud Infrastructure', category: 'devops', tag: 'Cloud Host', desc: 'ECS, S3, CloudFront CDN, and serverless compute deployment.' },
+  { name: 'Docker Containers', category: 'devops', tag: 'Containerization', desc: 'Consistent container environments from local dev to production ECS clusters.' },
+  { name: 'AWS Cloud (ECS, S3, CloudFront)', category: 'devops', tag: 'Cloud Host', desc: 'Containerized hosting, distributed assets, and edge CDN routing.' },
   { name: 'GitHub CI/CD Actions', category: 'devops', tag: 'Automation', desc: 'Automated linting, testing, and zero-downtime deployment pipelines.' },
-  { name: 'Linux & Nginx', category: 'devops', tag: 'Systems', desc: 'Hardened server environments with reverse-proxy configurations.' }
+  { name: 'Linux & Nginx', category: 'devops', tag: 'Systems', desc: 'Hardened server environments with reverse-proxy SSL configurations.' }
 ];
 
 const About = () => {
@@ -111,11 +120,12 @@ const About = () => {
           <div className="wrap">
             <div className={styles.heroBadgeRow}>
               <div className="badge-pill" style={{ background: 'var(--accent-yellow)', color: 'var(--text-main)' }}>
-                <span>⚡</span>
+                <span><BoltIcon size={12} /></span>
                 <span>ORIGIN &amp; PHILOSOPHY // SOLO SENIOR PRACTICE</span>
               </div>
-              <span className={`${styles.handSticker} hand`}>
-                100% written, deployed, and architected by Pardeep Shyoran ✍️
+              <span className={`${styles.handSticker} hand`} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                <span>100% written, deployed, and architected by Pardeep Shyoran</span>
+                <PenIcon size={13} />
               </span>
             </div>
 
@@ -133,8 +143,9 @@ const About = () => {
             </p>
 
             <div className={styles.heroCtas}>
-              <Link to="/contact" className="btn-brutal btn-brutal-primary">
-                START A PROJECT ⚡
+              <Link to="/contact" className="btn-brutal btn-brutal-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                <span>START A PROJECT</span>
+                <BoltIcon size={14} />
               </Link>
               <a href="#manifesto" className="btn-brutal btn-brutal-outline">
                 READ THE MANIFESTO ↓
@@ -384,8 +395,9 @@ const About = () => {
               </div>
 
               <div className={styles.ctaActions}>
-                <Link to="/contact" className="btn-brutal btn-brutal-yellow">
-                  GET IN TOUCH ⚡
+                <Link to="/contact" className="btn-brutal btn-brutal-yellow" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                  <span>GET IN TOUCH</span>
+                  <BoltIcon size={14} />
                 </Link>
                 <a href="/#tracks" className="btn-brutal btn-brutal-outline">
                   VIEW TRACKS →

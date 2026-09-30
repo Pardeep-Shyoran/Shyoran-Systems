@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { BoltIcon, LockIcon, PackageIcon } from '../Icons/Icons';
 import styles from './Hero.module.css';
 
 const heroTabContents = {
@@ -58,7 +59,7 @@ const Hero = () => {
       <div className="wrap">
         <div className={styles.heroBadgeRow}>
           <div className="badge-pill" style={{ background: '#FFE600' }}>
-            <span>⚡</span>
+            <span><BoltIcon size={12} /></span>
             <span>ACCEPTING BUILDS · Q1/Q2 2026</span>
           </div>
           <div className={`${styles.stickerHand} hand`}>
@@ -77,14 +78,21 @@ const Hero = () => {
         </p>
 
         <div className={styles.heroCtaGroup}>
-          <Link to="/contact" className="btn-brutal btn-brutal-primary">
-            START YOUR BUILD ⚡
+          <Link to="/contact" className="btn-brutal btn-brutal-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+            <span>START YOUR BUILD</span>
+            <BoltIcon size={14} />
           </Link>
           <a className="btn-brutal btn-brutal-outline" href="#comparison">
             SEE THE DIFFERENCE ↓
           </a>
           <span className={styles.heroTrustMeta}>
-            <span>🔒 Fixed Scope</span> · <span>⚡ Staging Deploys</span> · <span>📦 100% IP Transfer</span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              <LockIcon size={12} /> Fixed Scope
+            </span> · <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              <BoltIcon size={12} /> Staging Deploys
+            </span> · <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              <PackageIcon size={12} /> 100% IP Transfer
+            </span>
           </span>
         </div>
 
