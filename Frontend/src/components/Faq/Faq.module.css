@@ -42,11 +42,17 @@
 }
 
 .faqQuestion {
+  width: 100%;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  text-align: left;
   padding: 22px 26px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  cursor: pointer;
 }
 
 .faqQText {

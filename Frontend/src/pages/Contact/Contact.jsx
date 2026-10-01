@@ -2,9 +2,7 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
-import { BoltIcon } from '../../components/Icons/Icons';
+import { BoltIcon, CheckIcon, PlusIcon } from '../../components/Icons/Icons';
 import styles from './Contact.module.css';
 
 const SCOPE_OPTIONS = [
@@ -127,8 +125,6 @@ const Contact = () => {
         />
       </Helmet>
 
-      <Header />
-
       <main className={styles.contactMain}>
         {/* HERO SECTION */}
         <section className={styles.heroSection}>
@@ -197,7 +193,11 @@ const Contact = () => {
                       onClick={handleCopyEmail}
                       type="button"
                     >
-                      {copiedEmail ? 'COPIED! ✓' : 'COPY EMAIL'}
+                      {copiedEmail ? (
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                          <CheckIcon size={12} /> COPIED!
+                        </span>
+                      ) : 'COPY EMAIL'}
                     </button>
                   </div>
                 </div>
@@ -306,9 +306,10 @@ const Contact = () => {
                               type="button"
                               className={`${styles.pillOption} ${isSelected ? styles.pillOptionSelected : ''}`}
                               onClick={() => toggleScope(scope)}
+                              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
                             >
-                              {isSelected ? '✓ ' : '+ '}
-                              {scope}
+                              {isSelected ? <CheckIcon size={12} /> : <PlusIcon size={12} />}
+                              <span>{scope}</span>
                             </button>
                           );
                         })}
@@ -482,8 +483,6 @@ const Contact = () => {
           </div>
         </section>
       </main>
-
-      <Footer />
     </>
   );
 };

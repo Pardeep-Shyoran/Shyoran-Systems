@@ -1,7 +1,4 @@
-import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 import Hero from '../../components/Hero/Hero';
 import MarqueeTicker from '../../components/MarqueeTicker/MarqueeTicker';
 import Comparison from '../../components/Comparison/Comparison';
@@ -12,22 +9,6 @@ import Faq from '../../components/Faq/Faq';
 import MonolithCta from '../../components/MonolithCta/MonolithCta';
 
 const Home = () => {
-  // Intersection Observer for scroll reveal animations
-  useEffect(() => {
-    const revealEls = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    revealEls.forEach(el => io.observe(el));
-    return () => io.disconnect();
-  }, []);
-
   return (
     <>
       <Helmet>
@@ -38,9 +19,7 @@ const Home = () => {
         />
       </Helmet>
 
-      <Header />
-
-      <main id="top">
+      <div id="top">
         <Hero />
         <MarqueeTicker />
         <Comparison />
@@ -49,9 +28,7 @@ const Home = () => {
         <ProcessTimeline />
         <Faq />
         <MonolithCta />
-      </main>
-
-      <Footer />
+      </div>
     </>
   );
 };

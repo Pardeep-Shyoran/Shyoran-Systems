@@ -18,9 +18,10 @@ const Footer = () => {
               <span className={styles.colTitle}>// NAVIGATION</span>
               <Link to="/">Home</Link>
               <Link to="/services">Services (5 Pillars)</Link>
+              <Link to="/work">Work &amp; Case Studies</Link>
+              <Link to="/pricing">Pricing &amp; Tracks</Link>
               <Link to="/about">About Us</Link>
-              <a href="/#tracks">Tracks &amp; Work</a>
-              <a href="/#bento">Engineering</a>
+              <Link to="/portal">Founder Portal</Link>
               <Link to="/contact">Contact &amp; Scope</Link>
             </div>
             <div className={styles.navCol}>
@@ -29,7 +30,7 @@ const Footer = () => {
               <a href="https://www.linkedin.com/company/shyoran-systems" target="_blank" rel="noopener noreferrer">
                 LinkedIn ↗
               </a>
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/Pardeep-Shyoran" target="_blank" rel="noopener noreferrer">
                 GitHub ↗
               </a>
             </div>

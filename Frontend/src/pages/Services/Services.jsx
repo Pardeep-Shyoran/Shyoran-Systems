@@ -1,8 +1,5 @@
-import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 import {
   BoltIcon,
   StarIcon,
@@ -10,7 +7,8 @@ import {
   ToolIcon,
   SpeedPillarIcon,
   MernPillarIcon,
-  AiPillarIcon
+  AiPillarIcon,
+  CheckIcon
 } from '../../components/Icons/Icons';
 import styles from './Services.module.css';
 
@@ -222,36 +220,15 @@ services:
 ];
 
 const Services = () => {
-  // Intersection Observer for scroll reveal animations
-  useEffect(() => {
-    const revealEls = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    revealEls.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
-
   return (
     <>
       <Helmet>
-        <title>Engineering Services — Shyoran Systems | MERN Stack & AI Solutions</title>
+        <title>Engineering Services — Shyoran Systems | MERN Stack &amp; AI Solutions</title>
         <meta
           name="description"
           content="Explore Shyoran Systems engineering services: MERN stack web applications, AI/LLM integrations, e-commerce platforms, real-time collaboration systems, and AWS cloud deployment."
         />
       </Helmet>
-
-      <Header />
 
       <main className={styles.servicesMain}>
         {/* HERO SECTION */}
@@ -374,7 +351,9 @@ const Services = () => {
                         <ul className={styles.deliverablesList}>
                           {srv.deliverables.map((item, idx) => (
                             <li key={idx} className={styles.deliverableItem}>
-                              <span className={styles.checkIcon}>✓</span>
+                              <span className={styles.checkIcon}>
+                                <CheckIcon size={12} />
+                              </span>
                               <span>{item}</span>
                             </li>
                           ))}
@@ -522,8 +501,6 @@ const Services = () => {
           </div>
         </section>
       </main>
-
-      <Footer />
     </>
   );
 };

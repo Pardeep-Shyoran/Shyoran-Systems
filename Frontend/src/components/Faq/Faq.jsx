@@ -53,14 +53,19 @@ const Faq = () => {
               <div 
                 key={index} 
                 className={`${styles.faqItem} ${isOpen ? styles.faqItemOpen : ''}`}
-                onClick={() => toggleFaq(index)}
               >
-                <div className={styles.faqQuestion}>
+                <button 
+                  type="button"
+                  className={styles.faqQuestion}
+                  onClick={() => toggleFaq(index)}
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${index}`}
+                >
                   <span className={styles.faqQText}>{faq.q}</span>
-                  <span className={styles.faqToggleIcon}>{isOpen ? '−' : '+'}</span>
-                </div>
+                  <span className={styles.faqToggleIcon} aria-hidden="true">{isOpen ? '−' : '+'}</span>
+                </button>
                 {isOpen && (
-                  <div className={styles.faqAnswer}>
+                  <div id={`faq-answer-${index}`} className={styles.faqAnswer}>
                     <p>{faq.a}</p>
                   </div>
                 )}

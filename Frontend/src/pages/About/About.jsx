@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
-import { BoltIcon, PenIcon } from '../../components/Icons/Icons';
+import { BoltIcon, PenIcon, CheckIcon } from '../../components/Icons/Icons';
 import styles from './About.module.css';
 
 const terminalSnippets = {
@@ -76,21 +74,7 @@ const About = () => {
   const [copied, setCopied] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
 
-  // Scroll reveal setup
-  useEffect(() => {
-    const revealEls = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
 
-    revealEls.forEach(el => io.observe(el));
-    return () => io.disconnect();
-  }, [activeFilter]);
 
   const handleCopyCode = () => {
     navigator.clipboard.writeText(terminalSnippets[activeTab]);
@@ -111,8 +95,6 @@ const About = () => {
           content="Learn why Shyoran Systems replaces bloated agencies with a solo senior engineering practice. Direct architect access, modern MERN & AI workflows, shipped in weeks." 
         />
       </Helmet>
-
-      <Header />
 
       <main className={styles.aboutMain}>
         {/* HERO SECTION */}
@@ -231,7 +213,11 @@ const About = () => {
                     onClick={handleCopyCode}
                     aria-label="Copy terminal content"
                   >
-                    {copied ? 'COPIED! ✓' : 'COPY'}
+                    {copied ? (
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                        <CheckIcon size={12} /> COPIED!
+                      </span>
+                    ) : 'COPY'}
                   </button>
                 </div>
 
@@ -407,8 +393,6 @@ const About = () => {
           </div>
         </section>
       </main>
-
-      <Footer />
     </>
   );
 };

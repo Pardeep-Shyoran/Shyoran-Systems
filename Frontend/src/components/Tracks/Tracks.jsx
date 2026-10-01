@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BoltIcon, ClockIcon, TargetIcon, LockIcon, StarIcon } from '../Icons/Icons';
+import { BoltIcon, ClockIcon, TargetIcon, LockIcon, StarIcon, CheckIcon } from '../Icons/Icons';
 import styles from './Tracks.module.css';
 
 const TRACKS_CATALOG = [
@@ -341,7 +341,9 @@ const Tracks = () => {
                   <ul className={styles.deliverablesList}>
                     {activeTrack.features.map((feat, fIdx) => (
                       <li key={fIdx} className={styles.deliverableItem}>
-                        <span className={styles.checkIcon}>✓</span>
+                        <span className={styles.checkIcon}>
+                          <CheckIcon size={12} />
+                        </span>
                         <span>{feat}</span>
                       </li>
                     ))}
@@ -393,7 +395,11 @@ const Tracks = () => {
                   onClick={handleCopyCode}
                   title="Copy Blueprint"
                 >
-                  {copied ? 'COPIED! ✓' : 'COPY'}
+                  {copied ? (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                      <CheckIcon size={12} /> COPIED!
+                    </span>
+                  ) : 'COPY'}
                 </button>
               </div>
 

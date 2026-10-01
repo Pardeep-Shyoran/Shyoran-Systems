@@ -1,7 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 import { CrossIcon, BoltIcon } from '../../components/Icons/Icons';
 import styles from './PageNotFound.module.css';
 
@@ -14,8 +12,6 @@ const PageNotFound = () => {
         <title>404 — Page Not Found | Shyoran Systems</title>
         <meta name="description" content="404 - The page or route you are looking for does not exist on Shyoran Systems." />
       </Helmet>
-
-      <Header />
 
       <main className={styles.mainContainer}>
         <div className="wrap">
@@ -111,8 +107,6 @@ const PageNotFound = () => {
           </div>
         </div>
       </main>
-
-      <Footer />
     </>
   );
 };

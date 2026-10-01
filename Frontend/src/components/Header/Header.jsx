@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Logo from '../Logo/Logo'
 import { BoltIcon } from '../Icons/Icons'
@@ -7,7 +7,22 @@ import styles from './Header.module.css'
 const Header = () => {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const isHome = location.pathname === '/';
+
+  // Automatically close mobile menu when route changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -29,9 +44,18 @@ const Header = () => {
           >
             Services
           </Link>
-          <a href={isHome ? '#tracks' : '/#tracks'}>Tracks</a>
-          <a href={isHome ? '#bento' : '/#bento'}>Engineering</a>
-          <a href={isHome ? '#comparison' : '/#comparison'}>Compare</a>
+          <Link 
+            to="/work" 
+            className={location.pathname === '/work' ? styles.activeLink : ''}
+          >
+            Work
+          </Link>
+          <Link 
+            to="/pricing" 
+            className={location.pathname === '/pricing' ? styles.activeLink : ''}
+          >
+            Pricing
+          </Link>
           <Link 
             to="/about" 
             className={location.pathname === '/about' ? styles.activeLink : ''}
@@ -47,6 +71,13 @@ const Header = () => {
         </nav>
 
         <div className={styles.headerRight}>
+          <Link 
+            to="/portal" 
+            className={location.pathname === '/portal' || location.pathname === '/login' ? styles.portalActiveLink : styles.portalLink}
+          >
+            Client Hub
+          </Link>
+
           <Link 
             to="/contact" 
             className="btn-brutal btn-brutal-primary" 
@@ -66,16 +97,23 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Responsive mobile menu drawer */}
+      {/* Responsive mobile menu drawer & backdrop */}
       {mobileMenuOpen && (
-        <div className={styles.mobileDropdown}>
-          <Link to="/services" onClick={closeMobileMenu} className={location.pathname === '/services' ? styles.activeMobileLink : ''}>Services</Link>
-          <a href={isHome ? '#tracks' : '/#tracks'} onClick={closeMobileMenu}>Tracks</a>
-          <a href={isHome ? '#bento' : '/#bento'} onClick={closeMobileMenu}>Engineering</a>
-          <a href={isHome ? '#comparison' : '/#comparison'} onClick={closeMobileMenu}>Compare</a>
-          <Link to="/about" onClick={closeMobileMenu} className={location.pathname === '/about' ? styles.activeMobileLink : ''}>About</Link>
-          <Link to="/contact" onClick={closeMobileMenu} className={location.pathname === '/contact' ? styles.activeMobileLink : ''}>Contact</Link>
-        </div>
+        <>
+          <div 
+            className={styles.backdrop} 
+            onClick={closeMobileMenu} 
+            aria-hidden="true" 
+          />
+          <div className={styles.mobileDropdown}>
+            <Link to="/services" onClick={closeMobileMenu} className={location.pathname === '/services' ? styles.activeMobileLink : ''}>Services</Link>
+            <Link to="/work" onClick={closeMobileMenu} className={location.pathname === '/work' ? styles.activeMobileLink : ''}>Work &amp; Case Studies</Link>
+            <Link to="/pricing" onClick={closeMobileMenu} className={location.pathname === '/pricing' ? styles.activeMobileLink : ''}>Pricing &amp; Tracks</Link>
+            <Link to="/about" onClick={closeMobileMenu} className={location.pathname === '/about' ? styles.activeMobileLink : ''}>About</Link>
+            <Link to="/contact" onClick={closeMobileMenu} className={location.pathname === '/contact' ? styles.activeMobileLink : ''}>Contact</Link>
+            <Link to="/portal" onClick={closeMobileMenu} className={location.pathname === '/portal' ? styles.activeMobileLink : ''}>Founder Portal ↗</Link>
+          </div>
+        </>
       )}
     </header>
   )

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BoltIcon, LockIcon, PackageIcon } from '../Icons/Icons';
+import { BoltIcon, LockIcon, PackageIcon, CheckIcon } from '../Icons/Icons';
 import styles from './Hero.module.css';
 
 const heroTabContents = {
@@ -35,13 +35,13 @@ router.post("/execute", async (req, res) => {
 });
 
 export default router;`,
-  deploy: `[00:01:04] 🚀 Initializing Shyoran Systems Automated Deploy...
-[00:01:06] 📦 Bundling React 19 Frontend + Vite production assets
-[00:01:09] 🛡️ Validating API schema & JWT security policies
-[00:01:12] ⚡ Deploying microservices container to AWS ECS cluster
-[00:01:15] 🌐 Cloudflare Edge routing updated. DNS resolved.
-[00:01:17] ✨ HEALTH CHECK PASSED: 100% nominal. Latency: 22ms.
-[00:01:18] 🟢 Status: LIVE & READY FOR CLIENT TRAFFIC.`
+  deploy: `[00:01:04] [INIT] Initializing Shyoran Systems Automated Deploy...
+[00:01:06] [BUILD] Bundling React 19 Frontend + Vite production assets
+[00:01:09] [SECURE] Validating API schema & JWT security policies
+[00:01:12] [CONTAINER] Deploying microservices container to AWS ECS cluster
+[00:01:15] [NETWORK] Cloudflare Edge routing updated. DNS resolved.
+[00:01:17] [PASS] HEALTH CHECK PASSED: 100% nominal. Latency: 22ms.
+[00:01:18] [NOMINAL] Status: LIVE & READY FOR CLIENT TRAFFIC.`
 };
 
 const Hero = () => {
@@ -129,7 +129,11 @@ const Hero = () => {
               onClick={() => handleCopyCode(heroTabContents[activeHeroTab])}
               title="Copy Code"
             >
-              {copiedHero ? '✓ COPIED' : 'COPY'}
+              {copiedHero ? (
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <CheckIcon size={12} /> COPIED
+                </span>
+              ) : 'COPY'}
             </button>
           </div>
 

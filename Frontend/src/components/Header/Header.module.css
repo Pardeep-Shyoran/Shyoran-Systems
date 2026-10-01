@@ -66,6 +66,39 @@
   display: none;
 }
 
+.portalLink {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+  letter-spacing: 0.04em;
+}
+
+.portalLink:hover {
+  color: var(--text-main);
+  border-color: var(--border-subtle);
+  background: #FAF9F5;
+}
+
+.portalActiveLink {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-main);
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: var(--accent-yellow);
+  border: 1.5px solid var(--border-main);
+  box-shadow: 2px 2px 0px var(--border-main);
+  letter-spacing: 0.04em;
+}
+
 .headerRight {
   display: flex;
   align-items: center;
@@ -126,7 +159,21 @@
   top: 0;
 }
 
+.backdrop {
+  position: fixed;
+  top: 78px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 13, 20, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 98;
+}
+
 .mobileDropdown {
+  position: relative;
+  z-index: 99;
   display: flex;
   flex-direction: column;
   padding: 16px 24px 20px;

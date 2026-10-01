@@ -1,0 +1,79 @@
+.registerPage {
+  background: var(--bg-canvas);
+  min-height: calc(100vh - 160px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 2px solid var(--border-main);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: var(--shadow-lg);
+}
+
+.title {
+  font-size: clamp(32px, 5vw, 50px);
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.perksList {
+  background: #FAF9F5;
+  border: 1.5px solid var(--border-main);
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.perk {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.perk strong {
+  font-size: 15px;
+  color: var(--text-main);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.perk p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.existingClientLink {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  text-decoration: underline;
+}
