@@ -8,7 +8,7 @@ const marqueeItems = [
   { icon: 'star', text: 'REAL-TIME WEBSOCKETS & LIVE COLLABORATION' },
   { icon: 'bolt', text: 'AWS CLOUD & DOCKER DEPLOYMENTS' },
   { icon: 'star', text: '100% DIRECT FOUNDER ENGINEER' },
-  { icon: 'bolt', text: 'SHIPPED IN WEEKS NOT MONTHS' },
+  { icon: 'bolt', text: 'PRODUCTION-READY ARCHITECTURE & CLEAN CODE' },
 ];
 
 const MarqueeTicker = () => {
@@ -21,9 +21,9 @@ const MarqueeTicker = () => {
             <span>{item.text}</span>
           </span>
         ))}
-        {/* Duplicate items for continuous infinite scroll */}
+        {/* Duplicate items for continuous infinite scroll (hidden from screen readers) */}
         {marqueeItems.map((item, index) => (
-          <span key={`m2-${index}`} className={styles.marqueeItem}>
+          <span key={`m2-${index}`} className={styles.marqueeItem} aria-hidden="true">
             {item.icon === 'bolt' ? <BoltIcon size={16} /> : <StarIcon size={16} />}
             <span>{item.text}</span>
           </span>

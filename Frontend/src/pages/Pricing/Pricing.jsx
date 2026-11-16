@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO/SEO';
+import { getWebPageSchema } from '../../utils/seoSchemas';
 import {
   BoltIcon,
   CheckIcon,
@@ -60,7 +61,7 @@ const PRICING_TRACKS = [
   {
     id: 'enterprise-scale',
     badge: 'SCALE READY',
-    badgeBg: '#059669',
+    badgeBg: '#047857',
     badgeColor: '#FFFFFF',
     title: 'Track 03: Scale Platform & Commerce',
     price: '$7,200',
@@ -107,6 +108,13 @@ const Pricing = () => {
     }
   };
 
+  const handleModuleKeyDown = (e, id) => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      toggleModule(id);
+    }
+  };
+
   const calculatedCost = selectedModules.reduce((sum, id) => {
     const mod = ESTIMATOR_MODULES.find((m) => m.id === id);
     return sum + (mod ? mod.cost : 0);
@@ -119,26 +127,31 @@ const Pricing = () => {
 
   const effectiveBusinessDays = Math.ceil(calculatedDays * 0.75); // Account for concurrent modular engineering
 
+  const pricingSchema = getWebPageSchema(
+    'https://shyoran.systems/pricing',
+    'Pricing & Investment Tracks — Shyoran Systems',
+    'Transparent flat-fee engineering tracks with guaranteed turnaround. Zero billable hours padding, 100% intellectual property ownership, direct architect communication.'
+  );
+
   return (
     <>
-      <Helmet>
-        <title>Pricing &amp; Investment Tracks — Shyoran Systems</title>
-        <meta
-          name="description"
-          content="Transparent flat-fee engineering tracks with guaranteed turnaround. Zero billable hours padding, 100% intellectual property ownership, direct architect communication."
-        />
-      </Helmet>
+      <SEO
+        title="Pricing & Investment Tracks — Shyoran Systems"
+        description="Transparent flat-fee engineering tracks with guaranteed turnaround. Zero billable hours padding, 100% intellectual property ownership, direct architect communication."
+        canonicalUrl="https://shyoran.systems/pricing"
+        schema={pricingSchema}
+      />
 
       <div className={styles.pricingPage}>
         {/* HERO SECTION */}
         <section className={styles.heroSection}>
           <div className="wrap">
             <div className={styles.heroBadgeRow}>
-              <div className="badge-pill" style={{ background: 'var(--accent-yellow)', color: 'var(--text-main)' }}>
+              <div className="badge-pill badge-yellow">
                 <span><BoltIcon size={12} /></span>
                 <span>FLAT FEE TRANSPARENCY // NO BILLABLE HOURLY PADDING</span>
               </div>
-              <span className={`${styles.handSticker} hand`}>
+              <span className="sticker-hand">
                 Fixed scope, guaranteed delivery dates
               </span>
             </div>
@@ -196,8 +209,7 @@ const Pricing = () => {
                   <div className={styles.tierAction}>
                     <Link
                       to={`/contact?scope=${encodeURIComponent(track.scopeValue)}`}
-                      className="btn-brutal btn-brutal-primary"
-                      style={{ width: '100%', textAlign: 'center' }}
+                      className="btn-brutal btn-brutal-primary btn-full"
                     >
                       <span>SELECT THIS TRACK</span>
                       <BoltIcon size={14} />
@@ -214,10 +226,10 @@ const Pricing = () => {
           <div className="wrap">
             <div className={`${styles.estimatorBox} reveal`}>
               <div className={styles.estimatorHead}>
-                <div className="badge-pill" style={{ background: '#FFFFFF' }}>
+                <div className="badge-pill badge-white">
                   <span>// CUSTOM BUILD ESTIMATOR</span>
                 </div>
-                <h2 className="display-title" style={{ fontSize: 'clamp(28px, 4vw, 44px)', marginTop: '12px' }}>
+                <h2 className={`${styles.estimatorTitle} display-title`}>
                   MAP YOUR CUSTOM SPRINT
                 </h2>
                 <p className={styles.estimatorSubtitle}>
@@ -228,17 +240,22 @@ const Pricing = () => {
               <div className={styles.estimatorGrid}>
                 {/* Module Checklist */}
                 <div className={styles.modulesCol}>
-                  <span className={styles.modulesHeader}>SELECT CORE MODULES:</span>
-                  <div className={styles.modulesList}>
+                  <span className={styles.modulesHeader} id="estimator-modules-label">SELECT CORE MODULES:</span>
+                  <div className={styles.modulesList} role="group" aria-labelledby="estimator-modules-label">
                     {ESTIMATOR_MODULES.map((mod) => {
                       const isChecked = selectedModules.includes(mod.id);
                       return (
                         <div
                           key={mod.id}
+                          role="checkbox"
+                          aria-checked={isChecked}
+                          tabIndex={0}
                           className={`${styles.moduleCard} ${isChecked ? styles.moduleCardActive : ''}`}
                           onClick={() => toggleModule(mod.id)}
+                          onKeyDown={(e) => handleModuleKeyDown(e, mod.id)}
+                          aria-label={`${mod.name}, +$${mod.cost}, estimated ~${mod.days} days`}
                         >
-                          <div className={styles.checkboxIndicator}>
+                          <div className={styles.checkboxIndicator} aria-hidden="true">
                             {isChecked ? <CheckIcon size={12} /> : null}
                           </div>
                           <div className={styles.moduleInfo}>
@@ -255,7 +272,7 @@ const Pricing = () => {
 
                 {/* Estimate Summary Box */}
                 <div className={styles.summaryCol}>
-                  <div className={styles.summaryCard}>
+                  <div className={styles.summaryCard} aria-live="polite">
                     <span className={styles.summaryTag}>CALCULATED ESTIMATE</span>
                     <div className={styles.summaryPriceRow}>
                       <span className={styles.summaryPrice}>${calculatedCost.toLocaleString()}</span>
@@ -283,8 +300,8 @@ const Pricing = () => {
 
                     <Link
                       to={`/contact?scope=Custom%20Modular%20Sprint&budget=$${calculatedCost.toLocaleString()}`}
-                      className="btn-brutal btn-brutal-yellow"
-                      style={{ width: '100%', textAlign: 'center', marginTop: '20px' }}
+                      className="btn-brutal btn-brutal-yellow btn-full"
+                      style={{ marginTop: '20px' }}
                     >
                       <span>LOCK IN SCOPE &amp; TALK TO ARCHITECT</span>
                       <BoltIcon size={14} />

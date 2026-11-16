@@ -182,8 +182,23 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #00E676;
-  box-shadow: 0 0 8px #00E676;
+  background: var(--accent-green-bright);
+}
+
+.demoDisclaimerBox {
+  background: var(--bg-subtle);
+  border: 1px dashed var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.demoDisclaimerBox strong {
+  color: var(--text-main);
 }
 
 .sprintProjectName {
@@ -372,4 +387,37 @@
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  .portalPage {
+    padding: 36px 0;
+  }
+  .authBox {
+    padding: 24px 18px;
+  }
+  .sprintCard {
+    padding: 22px 18px;
+  }
+  .portalActionRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .portalActionRow a {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .authBox {
+    padding: 20px 14px;
+  }
+  .sprintCard {
+    padding: 18px 14px;
+  }
+  .input {
+    padding: 12px 12px;
+  }
 }

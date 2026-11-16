@@ -6,6 +6,8 @@
   overflow: hidden;
   padding: 14px 0;
   margin: 50px 0;
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 70px;
 }
 
 .marqueeItem {
@@ -17,4 +19,26 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
+}
+
+@media (max-width: 640px) {
+  .marqueeSection {
+    margin: 32px 0;
+    padding: 10px 0;
+  }
+  .marqueeItem {
+    font-size: 18px;
+    padding: 0 18px;
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marqueeSection {
+    overflow-x: visible;
+  }
+  .marqueeItem {
+    font-size: 15px;
+    padding: 6px 14px;
+  }
 }

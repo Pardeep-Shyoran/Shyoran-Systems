@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import { CrossIcon, BoltIcon } from '../../components/Icons/Icons';
+import SEO from '../../components/SEO/SEO';
+import { CrossIcon, BoltIcon, ArrowRightIcon } from '../../components/Icons/Icons';
 import styles from './PageNotFound.module.css';
 
 const PageNotFound = () => {
@@ -8,21 +8,23 @@ const PageNotFound = () => {
 
   return (
     <>
-      <Helmet>
-        <title>404 — Page Not Found | Shyoran Systems</title>
-        <meta name="description" content="404 - The page or route you are looking for does not exist on Shyoran Systems." />
-      </Helmet>
+      <SEO
+        title="404 — Page Not Found | Shyoran Systems"
+        description="404 - The page or route you requested does not exist on Shyoran Systems. Return to the homepage or contact our engineering team."
+        noindex={true}
+      />
 
-      <main className={styles.mainContainer}>
+
+      <div className={styles.mainContainer}>
         <div className="wrap">
           <div className={styles.contentBox}>
             {/* BADGE ROW */}
             <div className={styles.badgeRow}>
-              <div className="badge-pill" style={{ background: '#FF4D4D', color: '#FFFFFF' }}>
+              <div className="badge-pill badge-red">
                 <span><CrossIcon size={12} /></span>
                 <span>ERROR 404 // NULL ROUTE</span>
               </div>
-              <div className={`${styles.stickerHand} hand`}>
+              <div className="sticker-hand">
                 Even senior engineers hit dead ends ¯\_(ツ)_/¯
               </div>
             </div>
@@ -34,79 +36,95 @@ const PageNotFound = () => {
             </h1>
 
             <p className={styles.subtitle}>
-              The path <code>{location.pathname || '/unknown-route'}</code> doesn't exist or was refactored into oblivion. Don't worry, no production servers were harmed.
+              The path <code>{location.pathname || '/unknown-route'}</code> doesn&apos;t exist or was refactored
+              into oblivion. Don&apos;t worry, all core systems remain fully operational.
             </p>
 
             {/* INTERACTIVE DEBUG TERMINAL */}
             <div className={styles.debugTerminal}>
               <div className={styles.terminalHeader}>
-                <div className={styles.dots}>
+                <div className={styles.dots} aria-hidden="true">
                   <span className={styles.dotRed}></span>
                   <span className={styles.dotYellow}></span>
                   <span className={styles.dotGreen}></span>
                 </div>
                 <span className={styles.terminalTitle}>gateway-diagnostic.log</span>
-                <span className={styles.exitCode}>EXIT: 404</span>
+                <span className={styles.exitCode}>STATUS: 404 NOT FOUND</span>
               </div>
               <div className={styles.terminalBody}>
                 <div className={styles.logLine}>
-                  <span className={styles.logTag}>[DIAGNOSTIC]</span> Request URL: <code>{location.pathname}</code>
+                  <span className={styles.logTag}>[DIAGNOSTIC]</span> Requested Route: <code>{location.pathname}</code>
                 </div>
                 <div className={styles.logLine}>
-                  <span className={styles.logTagWarn}>[STATUS]</span> 404 Not Found — Resource unmapped in React Router
+                  <span className={styles.logTagWarn}>[STATUS]</span> 404 Not Found — Unmatched in React Router hierarchy
                 </div>
                 <div className={styles.logLine}>
-                  <span className={styles.logTagSuccess}>[RECOVERY]</span> Redirecting traffic to known safe coordinates...
+                  <span className={styles.logTagSuccess}>[RECOVERY]</span> Routing options available below. Safe paths verified.
                 </div>
               </div>
             </div>
 
-            {/* ACTION CTAs */}
+            {/* ACTION CTAs: Clear homepage link + contact options */}
             <div className={styles.ctaGroup}>
-              <Link to="/" className="btn-brutal btn-brutal-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+              <Link to="/" className="btn-brutal btn-brutal-primary btn-lg">
                 <span>RETURN TO HOMEPAGE</span>
                 <BoltIcon size={14} />
               </Link>
+              
+              <Link to="/contact" className="btn-brutal btn-brutal-outline btn-lg">
+                <span>CONTACT US / SCOPE PROJECT</span>
+                <ArrowRightIcon size={14} />
+              </Link>
+
               <a 
-                href={`mailto:hello@pardeep-shyoran.me?subject=404 Broken Link Report: ${location.pathname}`} 
-                className="btn-brutal btn-brutal-outline"
+                href={`mailto:hello@pardeep-shyoran.me?subject=404 Broken Link Report: ${encodeURIComponent(location.pathname)}`} 
+                className={styles.reportEmailLink}
+                aria-label="Report Broken Link (hello@pardeep-shyoran.me) - Send direct email"
               >
-                REPORT BROKEN LINK ↗
+                Report Broken Link (hello@pardeep-shyoran.me) ↗
               </a>
             </div>
 
-            {/* HELPFUL QUICK ROADS */}
+            {/* HELPFUL VERIFIED ROUTES */}
             <div className={styles.quickPaths}>
-              <span className={styles.quickTitle}>// QUICK DESTINATIONS</span>
+              <span className={styles.quickTitle}>// VERIFIED SYSTEM DESTINATIONS</span>
               <div className={styles.pathGrid}>
-                <Link to="/#tracks" className={styles.pathCard}>
+                <Link to="/services" className={styles.pathCard}>
                   <span className={styles.pathNum}>01</span>
                   <div>
-                    <strong>MVP Speedrun Track</strong>
-                    <p>Ship your web product in 14-21 days</p>
+                    <strong>Core Services</strong>
+                    <p>Full-stack MERN, AI pipelines, and cloud APIs</p>
                   </div>
                 </Link>
 
-                <Link to="/#bento" className={styles.pathCard}>
+                <Link to="/work" className={styles.pathCard}>
                   <span className={styles.pathNum}>02</span>
                   <div>
-                    <strong>AI &amp; LLM Workflows</strong>
-                    <p>Vector databases &amp; autonomous agent pipelines</p>
+                    <strong>Work &amp; Case Studies</strong>
+                    <p>Battle-tested production builds &amp; client metrics</p>
                   </div>
                 </Link>
 
-                <Link to="/#comparison" className={styles.pathCard}>
+                <Link to="/pricing" className={styles.pathCard}>
                   <span className={styles.pathNum}>03</span>
                   <div>
-                    <strong>The Agency Reality Check</strong>
-                    <p>Why founders skip the 10-person agency overhead</p>
+                    <strong>Pricing &amp; Tracks</strong>
+                    <p>Guaranteed 14-21 day fixed-scope deliverables</p>
+                  </div>
+                </Link>
+
+                <Link to="/about" className={styles.pathCard}>
+                  <span className={styles.pathNum}>04</span>
+                  <div>
+                    <strong>About the Practice</strong>
+                    <p>Direct senior engineer line with zero agency bloat</p>
                   </div>
                 </Link>
               </div>
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 };

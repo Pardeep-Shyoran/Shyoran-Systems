@@ -70,3 +70,25 @@
   color: #FFFFFF;
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 15px;
+    gap: 8px;
+  }
+  .statusPill {
+    display: none;
+  }
+  .badgeIcon {
+    width: 26px;
+    height: 26px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 340px) {
+  .logo {
+    font-size: 14px;
+    gap: 6px;
+  }
+}

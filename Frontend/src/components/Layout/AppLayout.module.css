@@ -2,9 +2,40 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.skipLink {
+  position: absolute;
+  top: -9999px;
+  left: 20px;
+  background: var(--accent-yellow);
+  color: #0A0D14;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 14px;
+  padding: 12px 20px;
+  border: 2px solid #0A0D14;
+  border-radius: var(--radius-sm);
+  box-shadow: 4px 4px 0px #0A0D14;
+  z-index: 100000;
+  text-decoration: none;
+  transition: top 0.15s ease-out;
+}
+
+.skipLink:focus {
+  top: 20px;
+  outline: 3px solid var(--accent-blue);
+  outline-offset: 3px;
 }
 
 .mainContent {
   flex: 1 0 auto;
   width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  outline: none;
 }

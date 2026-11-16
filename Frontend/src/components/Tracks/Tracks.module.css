@@ -58,6 +58,7 @@
   display: flex;
   gap: 8px;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   padding-bottom: 8px;
   margin-bottom: 24px;
   scrollbar-width: thin;
@@ -444,6 +445,57 @@
 @media (max-width: 900px) {
   .ribbonGrid {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .tracksSection {
+    padding: 48px 0 60px;
+  }
+
+  .consoleHeader {
+    padding: 14px 16px;
+  }
+
+  .ctaRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ctaRow a {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .metricsFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 420px) {
+  .ribbonGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .consoleHeaderLeft {
+    gap: 8px;
+  }
+
+  .consoleTrackNum {
+    font-size: 22px;
+    padding: 3px 8px;
+  }
+
+  .dossierCol {
+    padding: 18px 14px;
+  }
+
+  .codeArea {
+    padding: 14px;
+    font-size: 11.5px;
   }
 }
 

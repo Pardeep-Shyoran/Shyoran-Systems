@@ -1,0 +1,212 @@
+.privacyMain {
+  padding: 60px 0 100px;
+  min-height: calc(100vh - 180px);
+}
+
+.heroSection {
+  margin-bottom: 48px;
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.heroTitle {
+  font-size: clamp(38px, 6vw, 76px);
+  line-height: 0.95;
+  margin-bottom: 20px;
+}
+
+.heroLead {
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: var(--text-muted);
+  max-width: 760px;
+  line-height: 1.6;
+}
+
+.privacyContainer {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.stickyNav {
+  position: sticky;
+  top: 100px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-main);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.navHeading {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-subtle);
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.navLink {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.navLink:hover {
+  color: var(--text-main);
+  background: var(--bg-subtle);
+}
+
+.contentBody {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.policyCard {
+  background: var(--bg-card);
+  border: 2px solid var(--border-main);
+  border-radius: 14px;
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+.policyCardTag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.policyCardTitle {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+.policyCardText {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+
+.policyCardText:last-child {
+  margin-bottom: 0;
+}
+
+.policyList {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.policyListItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14.5px;
+  color: var(--text-main);
+  line-height: 1.55;
+}
+
+.bullet {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--accent-blue);
+  flex-shrink: 0;
+}
+
+.contactBox {
+  background: var(--bg-canvas);
+  border: 1.5px dashed var(--border-main);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contactEmailLink {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  text-decoration: underline;
+}
+
+.ctaFooter {
+  margin-top: 48px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 860px) {
+  .privacyContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .stickyNav {
+    display: none;
+  }
+
+  .policyCard {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .privacyMain {
+    padding: 40px 0 60px;
+  }
+
+  .policyCard {
+    padding: 20px 18px;
+  }
+
+  .ctaFooter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ctaFooter a {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .policyCard {
+    padding: 18px 14px;
+  }
+
+  .policyCardTitle {
+    font-size: 20px;
+  }
+}

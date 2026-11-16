@@ -1,24 +1,31 @@
-import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO/SEO';
+import { getWebPageSchema } from '../../utils/seoSchemas';
 import { BoltIcon, LockIcon, SpeedPillarIcon } from '../../components/Icons/Icons';
 import styles from './Register.module.css';
 
 const Register = () => {
+  const registerSchema = getWebPageSchema(
+    'https://shyoran.systems/register',
+    'Initiate Sprint Registration — Shyoran Systems',
+    'Initiate a new production build sprint with Shyoran Systems. Lock in dedicated founder engineering bandwidth and production timeline.'
+  );
+
   return (
     <>
-      <Helmet>
-        <title>Initiate Sprint Registration — Shyoran Systems</title>
-        <meta
-          name="description"
-          content="Initiate a new production build sprint with Shyoran Systems. Lock in dedicated founder engineering bandwidth and production timeline."
-        />
-      </Helmet>
+      <SEO
+        title="Initiate Sprint Registration — Shyoran Systems"
+        description="Initiate a new production build sprint with Shyoran Systems. Lock in dedicated founder engineering bandwidth and production timeline."
+        canonicalUrl="https://shyoran.systems/register"
+        schema={registerSchema}
+      />
+
 
       <div className={styles.registerPage}>
         <div className="wrap">
           <div className={styles.container}>
-            <div className={`${styles.card} reveal`}>
-              <div className="badge-pill" style={{ background: 'var(--accent-yellow)', color: 'var(--text-main)', marginBottom: '16px' }}>
+            <div className={styles.card}>
+              <div className="badge-pill badge-yellow" style={{ marginBottom: '16px' }}>
                 <BoltIcon size={12} />
                 <span>NEW SPRINT REGISTRATION // DIRECT ARCHITECT LINE</span>
               </div>
@@ -52,8 +59,7 @@ const Register = () => {
               <div className={styles.actions}>
                 <Link
                   to="/contact"
-                  className="btn-brutal btn-brutal-primary"
-                  style={{ fontSize: '16px', padding: '14px 32px' }}
+                  className="btn-brutal btn-brutal-primary btn-lg"
                 >
                   <span>PROCEED TO PROJECT SCOPING</span>
                   <BoltIcon size={14} />

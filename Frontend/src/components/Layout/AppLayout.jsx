@@ -9,8 +9,11 @@ const AppLayout = () => {
 
   return (
     <div className={styles.layoutContainer}>
+      <a href="#main-content" className={styles.skipLink}>
+        Skip to main content
+      </a>
       <Header />
-      <main className={styles.mainContent}>
+      <main id="main-content" tabIndex="-1" className={styles.mainContent}>
         <Outlet />
       </main>
       <Footer />

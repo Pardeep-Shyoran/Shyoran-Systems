@@ -6,10 +6,10 @@ const Comparison = () => {
     <section id="comparison" className={styles.comparisonSection}>
       <div className="wrap">
         <div className={`${styles.sectionHeader} reveal`}>
-          <div className="badge-pill" style={{ background: '#FFFFFF' }}>
+          <div className="badge-pill badge-white">
             <span>// REALITY CHECK</span>
           </div>
-          <h2 className="display-title" style={{ fontSize: 'clamp(32px, 5vw, 54px)', marginTop: '14px' }}>
+          <h2 className={`${styles.sectionTitle} display-title`}>
             WHY FOUNDERS CHOOSE SHYORAN OVER THE OLD AGENCY PLAYBOOK
           </h2>
           <p className={styles.sectionSubtitle}>

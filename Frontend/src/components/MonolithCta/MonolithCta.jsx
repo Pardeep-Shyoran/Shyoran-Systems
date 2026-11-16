@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { BoltIcon, MailIcon, PinIcon } from '../Icons/Icons';
+import { BoltIcon, MailIcon, PinIcon, CheckIcon } from '../Icons/Icons';
 import styles from './MonolithCta.module.css';
 
 const MonolithCta = () => {
@@ -9,38 +9,44 @@ const MonolithCta = () => {
         <div className={`${styles.monolithBox} reveal`}>
           <div className={styles.monolithBadge}>
             <BoltIcon size={13} />
-            <span>ACCEPTING BUILDS FOR THIS QUARTER</span>
+            <span>ACCEPTING CLIENT INQUIRIES &amp; NEW BUILDS</span>
           </div>
 
           <h2 className={`${styles.monolithTitle} display-title`}>
-            READY TO STOP TALKING<br />
-            <span className="highlight-yellow">AND START SHIPPING?</span>
+            READY TO BUILD YOUR NEXT PRODUCT?<br />
+            <span className="highlight-yellow">LET'S MAP THE ARCHITECTURE.</span>
           </h2>
 
           <p className={styles.monolithDesc}>
-            Whether you need a rapid MVP to pitch investors or an AI-powered system to streamline your operations, let's map out what your product actually needs.
+            Speak directly with founder and lead systems architect Pardeep Shyoran. 
+            We will evaluate your product vision, confirm technical feasibility, and structure a transparent milestone roadmap with zero sales runaround.
           </p>
 
           <div className={styles.monolithActions}>
             <Link 
               to="/contact"
-              className="btn-brutal btn-brutal-yellow" 
-              style={{ fontSize: '17px', padding: '16px 36px', display: 'inline-flex', alignItems: 'center', gap: '8px' }} 
+              className="btn-brutal btn-brutal-primary btn-lg" 
             >
-              <span>START A CONVERSATION</span>
+              <span>Discuss Your Project</span>
               <BoltIcon size={16} />
             </Link>
+            <a 
+              href="mailto:hello@pardeep-shyoran.me?subject=Discovery%20Call%20Inquiry%20-%20Shyoran%20Systems"
+              className="btn-brutal btn-brutal-outline btn-lg"
+            >
+              <span>Schedule Discovery Call ↗</span>
+            </a>
           </div>
 
           <div className={styles.monolithMeta}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <span className={styles.metaItem}>
               <MailIcon size={14} /> hello@pardeep-shyoran.me
             </span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <span className={styles.metaItem}>
               <PinIcon size={14} /> Sirsa, Haryana, India
             </span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-              <span className={styles.liveDot}></span> Current Status: Online &amp; Scoping Builds
+            <span className={styles.metaItem}>
+              <CheckIcon size={14} /> Average technical response within 4 hours
             </span>
           </div>
         </div>

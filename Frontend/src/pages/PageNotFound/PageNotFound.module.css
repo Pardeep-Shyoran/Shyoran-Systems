@@ -97,7 +97,7 @@
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 800;
-  color: #EF4444;
+  color: #FCA5A5;
   background: rgba(239, 68, 68, 0.15);
   border: 1px solid rgba(239, 68, 68, 0.3);
   padding: 2px 8px;
@@ -145,6 +145,22 @@
   gap: 16px;
   flex-wrap: wrap;
   margin-bottom: 50px;
+}
+
+.reportEmailLink {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+  display: inline-block;
+  padding: 8px 4px;
+}
+
+.reportEmailLink:hover {
+  color: var(--accent-blue);
 }
 
 /* QUICK PATHS */
@@ -219,5 +235,26 @@
   .ctaGroup {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .ctaGroup a {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .terminalBody {
+    padding: 16px 14px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pathGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .debugTerminal {
+    margin-bottom: 24px;
   }
 }

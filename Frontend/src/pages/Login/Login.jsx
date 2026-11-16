@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO/SEO';
 import {
   BoltIcon,
   LockIcon,
@@ -16,14 +16,14 @@ const MOCK_SPRINT = {
   track: 'Track 01: MERN Launchpad + AI Integration',
   sprint: 'Sprint 02 of 03',
   progressPercent: 78,
-  status: 'TESTING & STAGING DEPLOY',
-  stagingUrl: 'https://staging-sprint02.shyoran.systems',
-  leadArchitect: 'Pardeep Shyoran (Direct Line Active)',
+  status: 'ARCHITECTURE VERIFICATION (SAMPLE SPRINT)',
+  stagingUrl: 'https://staging-demo.shyoran.systems',
+  leadArchitect: 'Pardeep Shyoran (Direct Founder Line)',
   recentMilestones: [
     { title: 'MongoDB Atlas Vector Search HNSW Indexing Configured', status: 'COMPLETE' },
     { title: 'Server-Sent Events (SSE) Streaming Gateway Deployed', status: 'COMPLETE' },
-    { title: 'Zod Input Schema Validation & JWT Security Audit', status: 'COMPLETE' },
-    { title: 'End-to-End Stress Test (< 50ms P99 Latency)', status: 'IN PROGRESS' }
+    { title: 'Zod Input Schema Validation & Security Architecture Verified', status: 'COMPLETE' },
+    { title: 'Stress Test Target Benchmark (< 50ms P99 Architecture)', status: 'IN PROGRESS' }
   ]
 };
 
@@ -33,14 +33,15 @@ const Login = () => {
   const [authError, setAuthError] = useState('');
   const [authenticated, setAuthenticated] = useState(false);
 
+
   const handleLogin = (e) => {
     e.preventDefault();
     if (!accessCode.trim()) {
       setAuthError('Please enter your project access PIN or client email.');
       return;
     }
-    // Simple demo validation: any valid key or "demo" logs into the sprint console
     setAuthError('');
+    setIsDemoMode(true);
     setAuthenticated(true);
   };
 
@@ -51,21 +52,20 @@ const Login = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Founder Portal &amp; Client Staging — Shyoran Systems</title>
-        <meta
-          name="description"
-          content="Access your dedicated project sprint dashboard, preview live staging builds, inspect database schemas, and communicate directly with lead architect Pardeep Shyoran."
-        />
-      </Helmet>
+      <SEO
+        title="Founder Portal & Client Staging — Shyoran Systems"
+        description="Access your dedicated project sprint dashboard, preview live staging builds, inspect database schemas, and communicate directly with lead architect Pardeep Shyoran."
+        canonicalUrl="https://shyoran.systems/portal"
+        noindex={true}
+      />
 
       <div className={styles.portalPage}>
         <div className="wrap">
           {!authenticated ? (
             <div className={styles.authContainer}>
-              <div className={`${styles.authBox} reveal`}>
+              <div className={styles.authBox}>
                 <div className={styles.authBadgeRow}>
-                  <div className="badge-pill" style={{ background: '#000000', color: '#FFFFFF' }}>
+                  <div className="badge-pill badge-dark">
                     <LockIcon size={12} />
                     <span>PRIVATE FOUNDER STAGING</span>
                   </div>
@@ -92,15 +92,23 @@ const Login = () => {
                       className={styles.input}
                       placeholder="e.g. SHY-8492-ENTERPRISE or founder@domain.com"
                       value={accessCode}
-                      onChange={(e) => setAccessCode(e.target.value)}
+                      onChange={(e) => {
+                        setAccessCode(e.target.value);
+                        if (authError) setAuthError('');
+                      }}
+                      aria-invalid={!!authError}
+                      aria-describedby={authError ? 'accessCode-error' : undefined}
                     />
-                    {authError && <span className={styles.errorText}>{authError}</span>}
+                    {authError && (
+                      <span id="accessCode-error" role="alert" className={styles.errorText}>
+                        {authError}
+                      </span>
+                    )}
                   </div>
 
                   <button
                     type="submit"
-                    className="btn-brutal btn-brutal-primary"
-                    style={{ width: '100%', fontSize: '15px', padding: '14px' }}
+                    className="btn-brutal btn-brutal-primary btn-full"
                   >
                     <span>AUTHENTICATE &amp; VIEW SPRINT</span>
                     <BoltIcon size={14} />
@@ -131,12 +139,12 @@ const Login = () => {
           ) : (
             /* AUTHENTICATED FOUNDER SPRINT CONSOLE */
             <div className={styles.consoleContainer}>
-              <div className={`${styles.sprintCard} reveal`}>
+              <div className={styles.sprintCard}>
                 <div className={styles.sprintHead}>
                   <div>
-                    <div className="badge-pill" style={{ background: '#059669', color: '#FFFFFF', marginBottom: '8px' }}>
-                      <span className={styles.pulseDot}></span>
-                      <span>STAGING ACTIVE · {isDemoMode ? 'SIMULATED DEMO' : 'LIVE BUILD'}</span>
+                    <div className="badge-pill badge-dark" style={{ marginBottom: '8px' }}>
+                      <span className={styles.pulseDot} aria-hidden="true"></span>
+                      <span>SAMPLE DASHBOARD DEMO // SIMULATED CLIENT ENVIRONMENT</span>
                     </div>
                     <h1 className={styles.sprintProjectName}>{MOCK_SPRINT.projectName}</h1>
                     <span className={styles.clientSubtitle}>Client: {MOCK_SPRINT.client} · {MOCK_SPRINT.track}</span>
@@ -154,13 +162,26 @@ const Login = () => {
                   </button>
                 </div>
 
+                {isDemoMode && (
+                  <div className={styles.demoDisclaimerBox}>
+                    <strong>DEMONSTRATION VIEW:</strong> This console illustrates how client staging milestones, database migrations, and sprint deliveries are monitored. Active production clients receive verified two-factor credentials and direct private repository access.
+                  </div>
+                )}
+
                 {/* PROGRESS BAR */}
                 <div className={styles.progressSection}>
                   <div className={styles.progressLabelRow}>
                     <span>{MOCK_SPRINT.sprint} Completion</span>
                     <span className={styles.percentText}>{MOCK_SPRINT.progressPercent}%</span>
                   </div>
-                  <div className={styles.progressBarTrack}>
+                  <div
+                    className={styles.progressBarTrack}
+                    role="progressbar"
+                    aria-valuenow={MOCK_SPRINT.progressPercent}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-label={`${MOCK_SPRINT.sprint} Completion`}
+                  >
                     <div
                       className={styles.progressBarFill}
                       style={{ width: `${MOCK_SPRINT.progressPercent}%` }}
@@ -213,8 +234,7 @@ const Login = () => {
                 <div className={styles.portalActionRow}>
                   <Link
                     to="/contact"
-                    className="btn-brutal btn-brutal-primary"
-                    style={{ padding: '10px 22px', fontSize: '13px' }}
+                    className="btn-brutal btn-brutal-primary btn-sm"
                   >
                     <span>Message Architect Pardeep</span>
                     <BoltIcon size={12} />

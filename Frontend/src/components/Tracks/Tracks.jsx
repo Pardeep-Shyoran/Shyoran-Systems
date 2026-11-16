@@ -240,7 +240,7 @@ const Tracks = () => {
         {/* Section Header */}
         <div className={`${styles.sectionHeader} reveal`}>
           <div className={styles.headerTopRow}>
-            <div className="badge-pill" style={{ background: '#FFFFFF' }}>
+            <div className="badge-pill badge-white">
               <span>// SYSTEM BUILD TRACKS</span>
             </div>
             <div className={styles.capacityPill}>
@@ -364,16 +364,14 @@ const Tracks = () => {
               <div className={styles.ctaRow}>
                 <Link
                   to={`/contact?scope=${encodeURIComponent(activeTrack.title)}`}
-                  className="btn-brutal btn-brutal-primary"
-                  style={{ padding: '12px 26px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                  className="btn-brutal btn-brutal-primary btn-md"
                 >
                   <span>SCOPE TRACK {activeTrack.num}</span>
                   <BoltIcon size={14} />
                 </Link>
                 <Link
                   to={`/services#${activeTrack.serviceAnchor}`}
-                  className="btn-brutal btn-brutal-outline"
-                  style={{ padding: '12px 22px' }}
+                  className="btn-brutal btn-brutal-outline btn-md"
                 >
                   VIEW 5-PILLAR SPEC →
                 </Link>

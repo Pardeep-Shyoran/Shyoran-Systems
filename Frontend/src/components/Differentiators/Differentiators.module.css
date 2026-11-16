@@ -1,0 +1,129 @@
+.diffSection {
+  padding: var(--space-20) 0;
+  background: var(--bg-canvas);
+}
+
+.sectionHeader {
+  margin-bottom: var(--space-12);
+}
+
+.eyebrowRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+
+.sectionTitle {
+  font-size: var(--text-display-lg);
+  line-height: var(--lh-tight);
+  margin: var(--space-2) 0 var(--space-3) 0;
+}
+
+.sectionSubtitle {
+  font-size: var(--text-lead);
+  color: var(--text-muted);
+  max-width: 660px;
+  line-height: var(--lh-relaxed);
+  margin: 0;
+}
+
+.diffGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+.diffCard {
+  background: var(--bg-card);
+  border: var(--border-width-md) solid var(--border-main);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+}
+
+.diffCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-5);
+}
+
+.iconBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  background: var(--accent-blue-light);
+  color: var(--accent-blue);
+  border: 1.5px solid var(--border-main);
+  border-radius: var(--radius-sm);
+  box-shadow: 2px 2px 0px var(--border-main);
+}
+
+.pillarTag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--text-subtle);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-main);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.diffTitle {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0 0 6px 0;
+  color: var(--text-main);
+}
+
+.diffSubtitle {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-blue);
+  margin-bottom: var(--space-3);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.diffDesc {
+  font-size: var(--text-body);
+  color: var(--text-muted);
+  line-height: var(--lh-relaxed);
+  margin: 0;
+}
+
+@media (max-width: 860px) {
+  .diffGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .diffSection {
+    padding: var(--space-12) 0;
+  }
+
+  .diffCard {
+    padding: var(--space-5);
+  }
+}
+
+@media (max-width: 380px) {
+  .diffCard {
+    padding: var(--space-4);
+  }
+
+  .diffTitle {
+    font-size: 20px;
+  }
+}

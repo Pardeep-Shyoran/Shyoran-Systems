@@ -77,3 +77,26 @@
   color: var(--accent-blue);
   text-decoration: underline;
 }
+
+@media (max-width: 640px) {
+  .registerPage {
+    padding: 36px 0;
+  }
+  .card {
+    padding: 24px 18px;
+  }
+  .actions a {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .card {
+    padding: 20px 14px;
+  }
+  .perksList {
+    padding: 16px 12px;
+  }
+}

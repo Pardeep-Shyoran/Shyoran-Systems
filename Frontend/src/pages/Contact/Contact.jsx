@@ -1,90 +1,109 @@
-import { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
-import { useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useSearchParams, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { BoltIcon, CheckIcon, PlusIcon } from '../../components/Icons/Icons';
+import SEO from '../../components/SEO/SEO';
+import { 
+  BoltIcon, 
+  CheckIcon, 
+  CrossIcon, 
+  PenIcon, 
+  LockIcon, 
+  ShieldIcon,
+  ArrowRightIcon 
+} from '../../components/Icons/Icons';
+import { submitContactEnquiry } from '../../api/contactApi';
 import styles from './Contact.module.css';
 
 const SCOPE_OPTIONS = [
-  'Full-Stack MERN App',
-  'AI / LLM Integration & Chatbots',
-  'E-Commerce & Payment Systems',
-  'Real-Time Collaboration & Messaging',
-  'API Design & Cloud Deployment (AWS)',
-  'Architecture & Performance Audit'
+  'Custom Web Applications',
+  'SaaS Product Development',
+  'AI Integration & Automation',
+  'API & Backend Architecture',
+  'Mobile & Responsive PWAs',
+  'Maintenance & Code Audits'
 ];
 
 const BUDGET_OPTIONS = [
   '< $2,500',
   '$2,500 - $5,000',
   '$5,000 - $10,000',
-  '$10,000+'
+  '$10,000+',
+  'Flexible / Undecided'
 ];
 
 const TIMELINE_OPTIONS = [
-  '< 2 Weeks (Emergency MVP)',
-  '1 Month',
-  '2 - 3 Months',
-  'Flexible / Ongoing'
+  'Flexible / Exploring',
+  '< 1 Month (Fast Track)',
+  '1 - 2 Months',
+  '2 - 3 Months'
 ];
+
+// Helper to normalize scope queries from URL (supports legacy and new slugs)
+const normalizeScope = (query) => {
+  if (!query) return 'Custom Web Applications';
+  const qLower = query.toLowerCase();
+  if (qLower.includes('full-stack') || qLower.includes('mern') || qLower.includes('web app') || qLower.includes('custom web')) {
+    return 'Custom Web Applications';
+  }
+  if (qLower.includes('saas')) {
+    return 'SaaS Product Development';
+  }
+  if (qLower.includes('ai') || qLower.includes('llm') || qLower.includes('vector') || qLower.includes('automation')) {
+    return 'AI Integration & Automation';
+  }
+  if (qLower.includes('api') || qLower.includes('backend') || qLower.includes('cloud') || qLower.includes('real-time') || qLower.includes('socket')) {
+    return 'API & Backend Architecture';
+  }
+  if (qLower.includes('mobile') || qLower.includes('pwa')) {
+    return 'Mobile & Responsive PWAs';
+  }
+  if (qLower.includes('audit') || qLower.includes('maintenance') || qLower.includes('code review')) {
+    return 'Maintenance & Code Audits';
+  }
+  return SCOPE_OPTIONS.find(opt => opt.toLowerCase() === qLower) || 'Custom Web Applications';
+};
 
 const Contact = () => {
   const [searchParams] = useSearchParams();
   const urlScope = searchParams.get('scope');
+  const urlBudget = searchParams.get('budget');
 
-  const [selectedScopes, setSelectedScopes] = useState(() => {
-    if (urlScope && SCOPE_OPTIONS.includes(urlScope)) {
-      return [urlScope];
-    }
-    return ['Full-Stack MERN App'];
+  const [selectedScope, setSelectedScope] = useState(() => {
+    return urlScope ? normalizeScope(urlScope) : 'Custom Web Applications';
   });
-  const [selectedBudget, setSelectedBudget] = useState('$5,000 - $10,000');
-  const [copiedEmail, setCopiedEmail] = useState(false);
-  const [currentTimeIST, setCurrentTimeIST] = useState('');
-  const [isWorkingHours, setIsWorkingHours] = useState(true);
-  const [submittedData, setSubmittedData] = useState(null);
+
+  const [selectedBudget, setSelectedBudget] = useState(() => {
+    if (urlBudget) {
+      const match = BUDGET_OPTIONS.find(b => b.includes(urlBudget.replace('$', '')));
+      if (match) return match;
+    }
+    return '$5,000 - $10,000';
+  });
+
+  const [selectedTimeline, setSelectedTimeline] = useState('Flexible / Exploring');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [serverFieldErrors, setServerFieldErrors] = useState({});
+  const [submittedData, setSubmittedData] = useState(null);
+  const [copiedEmail, setCopiedEmail] = useState(false);
 
   const {
     register,
     handleSubmit,
+    watch,
     reset,
     formState: { errors }
-  } = useForm();
-
-  // Real-time IST clock update
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      // Format to IST
-      const istString = now.toLocaleTimeString('en-US', {
-        timeZone: 'Asia/Kolkata',
-        hour12: false,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      });
-      setCurrentTimeIST(istString);
-
-      // Check working hours (09:00 - 23:00 IST)
-      const istHours = parseInt(now.toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata', hour12: false, hour: '2-digit' }), 10);
-      setIsWorkingHours(istHours >= 9 && istHours < 23);
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const toggleScope = (scope) => {
-    if (selectedScopes.includes(scope)) {
-      if (selectedScopes.length > 1) {
-        setSelectedScopes(selectedScopes.filter(s => s !== scope));
-      }
-    } else {
-      setSelectedScopes([...selectedScopes, scope]);
+  } = useForm({
+    defaultValues: {
+      name: '',
+      email: '',
+      description: '',
+      _hp_company: ''
     }
-  };
+  });
+
+  const descriptionValue = watch('description', '');
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText('hello@pardeep-shyoran.me');
@@ -92,244 +111,381 @@ const Contact = () => {
     setTimeout(() => setCopiedEmail(false), 2200);
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (formData) => {
     setIsSubmitting(true);
-    
-    // Package scoping payload
+    setSubmitError('');
+    setServerFieldErrors({});
+
     const payload = {
-      ...data,
-      scopes: selectedScopes,
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      projectType: selectedScope,
       budget: selectedBudget,
-      timestamp: new Date().toISOString()
+      timeline: selectedTimeline,
+      description: formData.description.trim(),
+      _hp_company: formData._hp_company || ''
     };
 
-    // Simulate rapid dispatch / API processing
-    setTimeout(() => {
+    const response = await submitContactEnquiry(payload);
+    setIsSubmitting(false);
+
+    if (response.success) {
       setSubmittedData(payload);
-      setIsSubmitting(false);
-    }, 900);
+      setIsSuccess(true);
+    } else {
+      setSubmitError(response.error || 'Failed to submit enquiry. Please try again.');
+      if (response.fieldErrors) {
+        setServerFieldErrors(response.fieldErrors);
+      }
+    }
   };
 
-  const handleResetForm = () => {
+  const handleReset = () => {
+    setIsSuccess(false);
     setSubmittedData(null);
+    setSubmitError('');
+    setServerFieldErrors({});
     reset();
+  };
+
+  const contactSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: 'Tell Me About Your Project — Shyoran Systems',
+    description:
+      'Discuss your upcoming web application, SaaS product, or AI system directly with lead engineer Pardeep Shyoran. Clear scoping, honest feasibility, and zero agency middlemen.',
+    url: 'https://shyoran.systems/contact',
+    isPartOf: {
+      '@id': 'https://shyoran.systems/#website'
+    }
   };
 
   return (
     <>
-      <Helmet>
-        <title>Contact Us — Shyoran Systems | Direct Architect Line &amp; Project Scoping</title>
-        <meta 
-          name="description" 
-          content="Skip the sales reps. Talk directly to systems architect Pardeep Shyoran. Book a 15-minute discovery call or submit your project scope for a response in < 4 hours." 
-        />
-      </Helmet>
+      <SEO
+        title="Tell Me About Your Project — Shyoran Systems"
+        description="Discuss your upcoming web application, SaaS product, or AI system directly with lead engineer Pardeep Shyoran. Clear scoping, honest feasibility, and zero agency middlemen."
+        canonicalUrl="https://shyoran.systems/contact"
+        schema={contactSchema}
+      />
 
-      <main className={styles.contactMain}>
-        {/* HERO SECTION */}
+      <div className={styles.contactMain}>
+        {/* ==================================================================
+            1. HERO SECTION
+            ================================================================== */}
         <section className={styles.heroSection}>
           <div className="wrap">
-            <div className={styles.beaconRow}>
-              <div className={styles.beaconPill}>
-                <span className={styles.pulseDot}></span>
-                <span>SYSTEMS ONLINE · ACCEPTING 2 BUILDS FOR Q1/Q2 2026</span>
-              </div>
-              <span className={`${styles.handSticker} hand`} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                <span>Average response time: &lt; 4 hours</span>
+            <div className={styles.heroBadgeRow}>
+              <div className="badge-pill badge-yellow">
                 <BoltIcon size={12} />
+                <span>DIRECT ENGINEER LINE // PROJECT INQUIRY</span>
+              </div>
+              <span className="sticker-hand">
+                <span>Personal review by Pardeep Shyoran</span>
+                <PenIcon size={12} />
               </span>
             </div>
 
             <h1 className={`${styles.heroTitle} display-title`}>
-              START A PROJECT.<br />
-              <span className="highlight-yellow">SKIP THE SALES REPS.</span>
+              TELL ME ABOUT <span className="highlight-yellow">YOUR PROJECT.</span>
             </h1>
 
             <p className={styles.heroLead}>
-              Direct communication with the engineer who will actually write the code. 
-              <strong> Honest feasibility, concrete timelines, and zero sales runaround.</strong>
+              Whether you need an MVP built from scratch, a high-throughput MERN application, or an AI vector 
+              integration, you will collaborate directly with me. <strong>No sales reps, no junior handoffs, 
+              and zero bureaucratic runaround.</strong>
             </p>
           </div>
         </section>
 
-        {/* SPLIT LAYOUT: DIRECT CHANNELS + SCOPING FORM */}
+        {/* ==================================================================
+            2. SPLIT LAYOUT: GUIDANCE & DIRECT CONTACT + PROJECT FORM
+            ================================================================== */}
         <section className={styles.splitSection}>
           <div className="wrap">
             <div className={styles.splitGrid}>
-              
-              {/* LEFT COLUMN: CHANNELS & SIGNAL */}
-              <div className={styles.channelsCol}>
-                
-                {/* Channel 1: 15-Min Discovery Call */}
-                <div className={styles.channelCard}>
-                  <span className={styles.channelTag}>// FAST-TRACK LANE</span>
-                  <h3 className={styles.channelTitle}>15-Min Discovery Call</h3>
-                  <p className={styles.channelDesc}>
-                    Jump on a direct 1-on-1 video call to walk through your product architecture, 
-                    technical bottlenecks, and launch roadmap.
+
+              {/* LEFT COLUMN: WHAT TO SHARE & DIRECT EMAIL */}
+              <div className={styles.infoCol}>
+
+                {/* Card 1: What information is useful */}
+                <div className={styles.infoCard}>
+                  <span className={styles.cardTag}>// PREPARING YOUR SCOPE</span>
+                  <h2 className={styles.cardTitle}>What Information Is Helpful?</h2>
+                  <p className={styles.cardDesc}>
+                    You don't need a formal 30-page requirements document. To help me provide a concrete 
+                    technical evaluation, sharing any of the following is helpful:
                   </p>
-                  <a 
-                    href="mailto:hello@pardeep-shyoran.me?subject=Schedule%20Discovery%20Call%20-%20Shyoran%20Systems" 
-                    className="btn-brutal btn-brutal-primary"
-                    style={{ width: '100%', textAlign: 'center' }}
-                  >
-                    SCHEDULE DISCOVERY CALL ↗
-                  </a>
+
+                  <ul className={styles.checkList}>
+                    <li className={styles.checkListItem}>
+                      <span className={styles.checkIconWrapper}><CheckIcon size={13} /></span>
+                      <span><strong>Product Goal:</strong> What core problem does your product solve and who will use it?</span>
+                    </li>
+                    <li className={styles.checkListItem}>
+                      <span className={styles.checkIconWrapper}><CheckIcon size={13} /></span>
+                      <span><strong>Technical Context:</strong> Any preferred tech stack, existing databases, or third-party APIs (Stripe, OpenAI, etc.)?</span>
+                    </li>
+                    <li className={styles.checkListItem}>
+                      <span className={styles.checkIconWrapper}><CheckIcon size={13} /></span>
+                      <span><strong>Design State:</strong> Do you have existing Figma wireframes, or will we architect the UI from scratch?</span>
+                    </li>
+                    <li className={styles.checkListItem}>
+                      <span className={styles.checkIconWrapper}><CheckIcon size={13} /></span>
+                      <span><strong>Target Timeline:</strong> Do you have a hard launch date or an upcoming milestone?</span>
+                    </li>
+                  </ul>
                 </div>
 
-                {/* Channel 2: Direct Email with 1-Click Copy */}
-                <div className={styles.channelCard}>
-                  <span className={styles.channelTag}>// DIRECT INBOX</span>
-                  <h3 className={styles.channelTitle}>Direct Email</h3>
-                  <p className={styles.channelDesc}>
-                    Send wireframes, API docs, or specs directly to the founder inbox.
+                {/* Card 2: Direct Email Fallback */}
+                <div className={styles.infoCard}>
+                  <span className={styles.cardTag}>// DIRECT FOUNDER INBOX</span>
+                  <h2 className={styles.cardTitle}>Prefer Direct Email?</h2>
+                  <p className={styles.cardDesc}>
+                    If you have existing architectural specifications, RFPs, or design files, you can email me directly:
                   </p>
+
                   <div className={styles.emailActionRow}>
-                    <div className={styles.emailDisplay}>
+                    <div className={styles.emailDisplay} title="Founder Email Address">
                       hello@pardeep-shyoran.me
                     </div>
                     <button 
+                      type="button"
                       className={styles.copyEmailBtn} 
                       onClick={handleCopyEmail}
-                      type="button"
+                      aria-live="polite"
                     >
-                      {copiedEmail ? (
-                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-                          <CheckIcon size={12} /> COPIED!
-                        </span>
-                      ) : 'COPY EMAIL'}
+                      {copiedEmail ? '✓ COPIED!' : 'COPY EMAIL'}
                     </button>
                   </div>
+
+                  <div className={styles.timezoneNote}>
+                    Studio in Sirsa, Haryana 125103, India · Base Timezone: IST (UTC+5:30) · Remote Worldwide
+                  </div>
                 </div>
 
-                {/* Channel 3: Live Timezone & Status Indicator */}
-                <div className={styles.timezoneCard}>
-                  <div className={styles.timeHeader}>
-                    <span className={styles.timeTag}>LOCATION / TIMEZONE</span>
-                    <span className={styles.timeStatus}>
-                      <span className={styles.pulseDot} style={{ background: isWorkingHours ? '#00E676' : '#FFBD2E' }}></span>
-                      {isWorkingHours ? 'ONLINE (FAST REPLY)' : 'STANDBY (REPLIES 09:00 IST)'}
-                    </span>
-                  </div>
-                  <div className={styles.clockDisplay}>
-                    {currentTimeIST || '17:30:00'} <span style={{ fontSize: '16px', color: '#94A3B8' }}>IST (UTC+5:30)</span>
-                  </div>
-                  <p className={styles.timeSub}>
-                    Studio in Sirsa, Haryana 125103, India · Serving founders &amp; teams across US, Europe &amp; Global remote.
-                  </p>
-                </div>
-
-                {/* Channel 4: 3-Step Turnaround SLA */}
-                <div className={styles.slaCard}>
-                  <div className={styles.slaTitle}>
-                    <span><BoltIcon size={13} /></span>
-                    <span>TURNAROUND SLA GUARANTEE</span>
-                  </div>
-                  <div className={styles.slaSteps}>
-                    <div className={styles.slaStep}>
-                      <span className={styles.slaStepNumber}>01</span>
-                      <span><strong>Within 4 Hours:</strong> Architectural review &amp; feasibility assessment in your inbox.</span>
-                    </div>
-                    <div className={styles.slaStep}>
-                      <span className={styles.slaStepNumber}>02</span>
-                      <span><strong>Within 24 Hours:</strong> 15-minute scope call &amp; technical stack alignment.</span>
-                    </div>
-                    <div className={styles.slaStep}>
-                      <span className={styles.slaStepNumber}>03</span>
-                      <span><strong>Within 48 Hours:</strong> Milestone proposal with fixed scope and guaranteed launch date.</span>
-                    </div>
-                  </div>
+                {/* Card 3: What happens next (Realistic expectation) */}
+                <div className={styles.infoCard}>
+                  <span className={styles.cardTag}>// WHAT HAPPENS NEXT</span>
+                  <h2 className={styles.cardTitle}>What To Expect</h2>
+                  <ul className={styles.checkList}>
+                    <li className={styles.checkListItem}>
+                      <span className={styles.checkIconWrapper}><CheckIcon size={13} /></span>
+                      <span><strong>Personal Review:</strong> I personally review your project requirements and technical constraints.</span>
+                    </li>
+                    <li className={styles.checkListItem}>
+                      <span className={styles.checkIconWrapper}><CheckIcon size={13} /></span>
+                      <span><strong>Honest Assessment:</strong> I reply with clarifying questions or a preliminary feasibility breakdown.</span>
+                    </li>
+                    <li className={styles.checkListItem}>
+                      <span className={styles.checkIconWrapper}><CheckIcon size={13} /></span>
+                      <span><strong>Discovery Call:</strong> If there is a mutual fit, we schedule a focused 20-minute call to align on scope and delivery dates.</span>
+                    </li>
+                  </ul>
                 </div>
 
               </div>
 
-              {/* RIGHT COLUMN: INTERACTIVE SCOPING FORM */}
+              {/* RIGHT COLUMN: PROJECT ENQUIRY FORM */}
               <div className={styles.formCard}>
-                
-                {submittedData ? (
-                  /* SUBMISSION TERMINAL LOG */
-                  <div className={styles.successTerminal}>
-                    <div className={styles.terminalTop}>
-                      <span className={`${styles.terminalDot} ${styles.dotRed}`}></span>
-                      <span className={`${styles.terminalDot} ${styles.dotYellow}`}></span>
-                      <span className={`${styles.terminalDot} ${styles.dotGreen}`}></span>
-                      <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: '#94A3B8', marginLeft: '8px' }}>
-                        transmission-status.log
-                      </span>
-                    </div>
-                    <div className={styles.terminalOutput}>
-                      <p><span className={styles.successTag}>[200 OK]</span> Specification received successfully by Pardeep Shyoran.</p>
-                      <p><strong>Client:</strong> {submittedData.name} &lt;{submittedData.email}&gt;</p>
-                      <p><strong>Company / Project:</strong> {submittedData.company || 'Confidential'}</p>
-                      <p><strong>Selected Scopes:</strong> {submittedData.scopes.join(', ')}</p>
-                      <p><strong>Budget Bracket:</strong> {submittedData.budget}</p>
-                      <p><strong>Target Timeline:</strong> {submittedData.timeline}</p>
-                      <p><strong>Timestamp:</strong> {new Date().toLocaleString()}</p>
-                      <p style={{ color: 'var(--accent-yellow)', marginTop: '16px' }}>
-                        &gt; Notification dispatched to priority terminal. Review in progress.
-                      </p>
 
-                      <button 
-                        className="btn-brutal btn-brutal-yellow resetBtn" 
-                        onClick={handleResetForm}
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
-                      >
-                        <span>SUBMIT ANOTHER SPECIFICATION</span>
-                        <BoltIcon size={14} />
-                      </button>
+                {isSuccess && submittedData ? (
+                  /* SUCCESS STATE */
+                  <div className={styles.successCard} role="status" aria-live="polite">
+                    <div className={styles.successHeader}>
+                      <div className={styles.successBadge}>
+                        <CheckIcon size={20} />
+                      </div>
+                      <div>
+                        <h2 className={styles.successTitle}>Enquiry Received</h2>
+                        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: '#059669', fontWeight: 700 }}>
+                          CONFIRMED BY SERVER
+                        </span>
+                      </div>
                     </div>
+
+                    <p className={styles.successLead}>
+                      Thank you, <strong>{submittedData.name}</strong>. Your project details have been recorded. 
+                      I will review your requirements and reply directly to <strong>{submittedData.email}</strong>.
+                    </p>
+
+                    <div className={styles.summaryBox}>
+                      <div className={styles.summaryItem}>
+                        <span className={styles.summaryLabel}>Client:</span>
+                        <span className={styles.summaryVal}>{submittedData.name}</span>
+                      </div>
+                      <div className={styles.summaryItem}>
+                        <span className={styles.summaryLabel}>Email:</span>
+                        <span className={styles.summaryVal}>{submittedData.email}</span>
+                      </div>
+                      <div className={styles.summaryItem}>
+                        <span className={styles.summaryLabel}>Project Type:</span>
+                        <span className={styles.summaryVal}>{submittedData.projectType}</span>
+                      </div>
+                      <div className={styles.summaryItem}>
+                        <span className={styles.summaryLabel}>Budget Bracket:</span>
+                        <span className={styles.summaryVal}>{submittedData.budget}</span>
+                      </div>
+                      <div className={styles.summaryItem}>
+                        <span className={styles.summaryLabel}>Target Timeline:</span>
+                        <span className={styles.summaryVal}>{submittedData.timeline}</span>
+                      </div>
+                    </div>
+
+                    <div className={styles.nextStepsBox}>
+                      <div className={styles.nextStepsTitle}>Next Steps:</div>
+                      <ol className={styles.nextStepsList}>
+                        <li>I will examine your requirements, technical feasibility, and architectural needs.</li>
+                        <li>You will receive a direct reply with questions or initial technical recommendations.</li>
+                        <li>If aligned, we will schedule a brief technical alignment call.</li>
+                      </ol>
+                    </div>
+
+                    <button 
+                      type="button" 
+                      onClick={handleReset}
+                      className={`btn-brutal btn-brutal-outline ${styles.resetBtn}`}
+                    >
+                      <span>SUBMIT ANOTHER ENQUIRY</span>
+                    </button>
                   </div>
                 ) : (
-                  /* INTERACTIVE FORM */
-                  <form onSubmit={handleSubmit(onSubmit)}>
+                  /* THE ENQUIRY FORM */
+                  <form onSubmit={handleSubmit(onSubmit)} noValidate>
                     <div className={styles.formHeader}>
-                      <div className="badge-pill formEyebrow" style={{ background: '#FFFFFF', color: 'var(--text-main)' }}>
-                        <span>// PROJECT SCOPING MATRIX</span>
+                      <div className="badge-pill badge-white" style={{ marginBottom: '8px' }}>
+                        <span>// PROJECT INQUIRY FORM</span>
                       </div>
-                      <h2 className={styles.formTitle}>Tell Me About Your Build</h2>
+                      <h2 className={styles.formTitle}>Project Details</h2>
                       <p className={styles.formSubtitle}>
-                        Select your project requirements and budget tier for a rapid technical evaluation.
+                        Fill in the details below. All technical and business information is kept strictly confidential.
                       </p>
                     </div>
 
-                    {/* Scope Selector Pills */}
+                    {/* General Error Banner */}
+                    {submitError && (
+                      <div className={styles.alertError} role="alert" aria-live="assertive">
+                        <CrossIcon size={16} />
+                        <div>
+                          <strong>Submission Error</strong>
+                          <span>{submitError}</span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Honeypot field for anti-spam (invisible to users & screen readers) */}
+                    <div style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }} aria-hidden="true">
+                      <label htmlFor="_hp_company">Leave this field blank</label>
+                      <input
+                        id="_hp_company"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        {...register('_hp_company')}
+                      />
+                    </div>
+
+                    {/* 1. Name & 2. Email Fields */}
+                    <div className={styles.inputGrid}>
+                      <div className={styles.formGroup}>
+                        <label className={styles.label} htmlFor="name">
+                          Your Name <span className={styles.labelRequired}>*</span>
+                        </label>
+                        <input
+                          id="name"
+                          type="text"
+                          autoComplete="name"
+                          aria-required="true"
+                          aria-invalid={Boolean(errors.name || serverFieldErrors.name)}
+                          aria-describedby={errors.name ? 'name-error' : undefined}
+                          className={`${styles.inputField} ${errors.name || serverFieldErrors.name ? styles.inputError : ''}`}
+                          placeholder="e.g. Alex Vance"
+                          disabled={isSubmitting}
+                          {...register('name', { 
+                            required: 'Please enter your name',
+                            minLength: { value: 2, message: 'Name must be at least 2 characters' }
+                          })}
+                        />
+                        {(errors.name || serverFieldErrors.name) && (
+                          <span id="name-error" className={styles.errorText} role="alert">
+                            {errors.name?.message || serverFieldErrors.name}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className={styles.formGroup}>
+                        <label className={styles.label} htmlFor="email">
+                          Work Email <span className={styles.labelRequired}>*</span>
+                        </label>
+                        <input
+                          id="email"
+                          type="email"
+                          autoComplete="email"
+                          aria-required="true"
+                          aria-invalid={Boolean(errors.email || serverFieldErrors.email)}
+                          aria-describedby={errors.email ? 'email-error' : undefined}
+                          className={`${styles.inputField} ${errors.email || serverFieldErrors.email ? styles.inputError : ''}`}
+                          placeholder="alex@company.com"
+                          disabled={isSubmitting}
+                          {...register('email', { 
+                            required: 'Please enter your email address',
+                            pattern: {
+                              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                              message: 'Please enter a valid email address'
+                            }
+                          })}
+                        />
+                        {(errors.email || serverFieldErrors.email) && (
+                          <span id="email-error" className={styles.errorText} role="alert">
+                            {errors.email?.message || serverFieldErrors.email}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* 3. Project Type (Selectable Pill Group) */}
                     <div className={styles.formSection}>
-                      <label className={styles.label}>
-                        Project Scope &amp; Focus <span className={styles.labelOptional}>(select all that apply)</span>
+                      <label className={styles.label} id="scope-label">
+                        Project Type <span className={styles.labelOptional}>(optional)</span>
                       </label>
-                      <div className={styles.pillGroup}>
+                      <div className={styles.pillGroup} role="radiogroup" aria-labelledby="scope-label">
                         {SCOPE_OPTIONS.map(scope => {
-                          const isSelected = selectedScopes.includes(scope);
+                          const isSelected = selectedScope === scope;
                           return (
                             <button
                               key={scope}
                               type="button"
+                              role="radio"
+                              aria-checked={isSelected}
                               className={`${styles.pillOption} ${isSelected ? styles.pillOptionSelected : ''}`}
-                              onClick={() => toggleScope(scope)}
-                              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}
+                              onClick={() => setSelectedScope(scope)}
+                              disabled={isSubmitting}
                             >
-                              {isSelected ? <CheckIcon size={12} /> : <PlusIcon size={12} />}
-                              <span>{scope}</span>
+                              {isSelected ? '✓ ' : '+ '}
+                              {scope}
                             </button>
                           );
                         })}
                       </div>
                     </div>
 
-                    {/* Budget Selector Pills */}
+                    {/* 4. Target Budget Bracket (Selectable Pill Group) */}
                     <div className={styles.formSection}>
-                      <label className={styles.label}>
-                        Target Budget Bracket
+                      <label className={styles.label} id="budget-label">
+                        Budget Range <span className={styles.labelOptional}>(optional)</span>
                       </label>
-                      <div className={styles.pillGroup}>
+                      <div className={styles.pillGroup} role="radiogroup" aria-labelledby="budget-label">
                         {BUDGET_OPTIONS.map(budget => {
                           const isSelected = selectedBudget === budget;
                           return (
                             <button
                               key={budget}
                               type="button"
+                              role="radio"
+                              aria-checked={isSelected}
                               className={`${styles.pillOption} ${isSelected ? styles.pillOptionSelected : ''}`}
                               onClick={() => setSelectedBudget(budget)}
+                              disabled={isSubmitting}
                             >
                               {isSelected ? '● ' : '○ '}
                               {budget}
@@ -339,75 +495,64 @@ const Contact = () => {
                       </div>
                     </div>
 
-                    {/* Name & Email Fields */}
-                    <div className={styles.inputGrid}>
-                      <div className={styles.formGroup}>
-                        <label className={styles.label} htmlFor="name">Your Name *</label>
-                        <input
-                          id="name"
-                          className={styles.inputField}
-                          placeholder="e.g. Alex Vance"
-                          {...register('name', { required: 'Name is required' })}
-                        />
-                        {errors.name && <span className={styles.errorText}>{errors.name.message}</span>}
-                      </div>
-
-                      <div className={styles.formGroup}>
-                        <label className={styles.label} htmlFor="email">Work Email *</label>
-                        <input
-                          id="email"
-                          type="email"
-                          className={styles.inputField}
-                          placeholder="alex@company.com"
-                          {...register('email', { 
-                            required: 'Email is required',
-                            pattern: {
-                              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                              message: 'Please enter a valid email address'
-                            }
-                          })}
-                        />
-                        {errors.email && <span className={styles.errorText}>{errors.email.message}</span>}
+                    {/* 5. Target Timeline */}
+                    <div className={styles.formSection}>
+                      <label className={styles.label} id="timeline-label">
+                        Target Timeline <span className={styles.labelOptional}>(optional)</span>
+                      </label>
+                      <div className={styles.pillGroup} role="radiogroup" aria-labelledby="timeline-label">
+                        {TIMELINE_OPTIONS.map(time => {
+                          const isSelected = selectedTimeline === time;
+                          return (
+                            <button
+                              key={time}
+                              type="button"
+                              role="radio"
+                              aria-checked={isSelected}
+                              className={`${styles.pillOption} ${isSelected ? styles.pillOptionSelected : ''}`}
+                              onClick={() => setSelectedTimeline(time)}
+                              disabled={isSubmitting}
+                            >
+                              {isSelected ? '● ' : '○ '}
+                              {time}
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
 
-                    {/* Company & Timeline */}
-                    <div className={styles.inputGrid}>
-                      <div className={styles.formGroup}>
-                        <label className={styles.label} htmlFor="company">Company / Product <span className={styles.labelOptional}>(optional)</span></label>
-                        <input
-                          id="company"
-                          className={styles.inputField}
-                          placeholder="Acme Labs, Inc."
-                          {...register('company')}
-                        />
-                      </div>
-
-                      <div className={styles.formGroup}>
-                        <label className={styles.label} htmlFor="timeline">Desired Launch Timeline</label>
-                        <select id="timeline" className={styles.selectField} {...register('timeline')}>
-                          {TIMELINE_OPTIONS.map(opt => (
-                            <option key={opt} value={opt}>{opt}</option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-
-                    {/* Project Overview */}
+                    {/* 6. Project Description (Required, min 20 chars) */}
                     <div className={styles.formGroup}>
                       <label className={styles.label} htmlFor="description">
-                        Project Overview &amp; Requirements *
+                        Project Description &amp; Requirements <span className={styles.labelRequired}>*</span>
                       </label>
                       <textarea
                         id="description"
-                        className={styles.textareaField}
-                        placeholder="What are you building? What problem does it solve, what is the existing stack (if any), and do you have designs/specs ready?"
+                        aria-required="true"
+                        aria-invalid={Boolean(errors.description || serverFieldErrors.description)}
+                        aria-describedby={errors.description ? 'desc-error' : 'desc-help'}
+                        className={`${styles.textareaField} ${errors.description || serverFieldErrors.description ? styles.inputError : ''}`}
+                        placeholder="What are you building? Please describe the product's main goal, key features, target audience, and any technical constraints or preferred integrations."
+                        disabled={isSubmitting}
                         {...register('description', { 
-                          required: 'Please share a brief overview of your build',
-                          minLength: { value: 10, message: 'Please provide at least 10 characters' }
+                          required: 'Please provide a project description',
+                          minLength: { value: 20, message: 'Please provide at least 20 characters so I can understand your requirements' }
                         })}
                       />
-                      {errors.description && <span className={styles.errorText}>{errors.description.message}</span>}
+                      <div className={styles.fieldFooter}>
+                        {(errors.description || serverFieldErrors.description) ? (
+                          <span id="desc-error" className={styles.errorText} role="alert">
+                            {errors.description?.message || serverFieldErrors.description}
+                          </span>
+                        ) : (
+                          <span id="desc-help" style={{ fontSize: '12px', color: 'var(--text-subtle)' }}>
+                            Minimum 20 characters
+                          </span>
+                        )}
+                        <span className={styles.charCount}>
+                          {descriptionValue.length} characters
+                        </span>
+                      </div>
                     </div>
 
                     {/* Submit Button */}
@@ -415,17 +560,24 @@ const Contact = () => {
                       type="submit"
                       disabled={isSubmitting}
                       className={`btn-brutal btn-brutal-primary ${styles.submitBtn}`}
-                      style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
                     >
                       {isSubmitting ? (
-                        'TRANSMITTING SPECIFICATION...'
+                        <span>SENDING ENQUIRY...</span>
                       ) : (
                         <>
-                          <span>DISPATCH SPECIFICATION</span>
+                          <span>SUBMIT PROJECT ENQUIRY</span>
                           <BoltIcon size={14} />
                         </>
                       )}
                     </button>
+
+                    <div className={styles.submitNote}>
+                      🔒 Your contact information and project specs are kept strictly confidential under our{' '}
+                      <Link to="/privacy" style={{ color: 'var(--accent-blue)', textDecoration: 'underline', fontWeight: 600 }}>
+                        Privacy Policy
+                      </Link>
+                      . Zero sales pressure.
+                    </div>
                   </form>
                 )}
 
@@ -435,54 +587,45 @@ const Contact = () => {
           </div>
         </section>
 
-        {/* MINI CONTACT FAQ */}
-        <section className={styles.faqSection}>
+        {/* ==================================================================
+            3. MINI TRANSPARENCY FAQ
+            ================================================================== */}
+        <section className={styles.faqSection} style={{ padding: '60px 0', background: '#FFFFFF', borderBottom: '2px solid var(--border-main)' }}>
           <div className="wrap">
-            <div className={styles.faqHeader}>
-              <div className="badge-pill" style={{ background: 'var(--accent-yellow)', color: 'var(--text-main)', marginBottom: '12px' }}>
+            <div style={{ marginBottom: '32px' }}>
+              <div className="badge-pill badge-yellow" style={{ marginBottom: '10px' }}>
                 <span>// TRANSPARENCY FAQ</span>
               </div>
-              <h2 className="display-title" style={{ fontSize: 'clamp(32px, 4vw, 52px)' }}>
+              <h2 className="display-title" style={{ fontSize: 'clamp(28px, 3.6vw, 48px)' }}>
                 FREQUENTLY ASKED <span className="highlight-yellow">QUESTIONS</span>
               </h2>
             </div>
 
-            <div className={styles.faqGrid}>
-              <div className={styles.faqCard}>
-                <h3 className={styles.faqQuestion}>How quickly can we kick off?</h3>
-                <p className={styles.faqAnswer}>
-                  Since I maintain a strict cap of 2 active builds simultaneously, onboarding can begin within 
-                  48-72 hours of agreement signing and milestone deposit.
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+              <div style={{ background: 'var(--bg-canvas)', border: '2px solid var(--border-main)', borderRadius: '12px', padding: '22px', boxShadow: 'var(--shadow-sm)' }}>
+                <h3 style={{ fontSize: '17px', fontWeight: 800, marginBottom: '8px' }}>Do you sign mutual NDAs?</h3>
+                <p style={{ fontSize: '13.5px', color: 'var(--text-muted)', lineHeight: '1.6', margin: 0 }}>
+                  Yes. Before diving into proprietary blueprints or confidential IP, we can execute a standard mutual non-disclosure agreement.
                 </p>
               </div>
 
-              <div className={styles.faqCard}>
-                <h3 className={styles.faqQuestion}>Do you sign mutual NDAs?</h3>
-                <p className={styles.faqAnswer}>
-                  Yes. Before diving into proprietary business logic or product blueprints, we can execute 
-                  a standard mutual non-disclosure agreement.
+              <div style={{ background: 'var(--bg-canvas)', border: '2px solid var(--border-main)', borderRadius: '12px', padding: '22px', boxShadow: 'var(--shadow-sm)' }}>
+                <h3 style={{ fontSize: '17px', fontWeight: 800, marginBottom: '8px' }}>What if I don't have detailed specs yet?</h3>
+                <p style={{ fontSize: '13.5px', color: 'var(--text-muted)', lineHeight: '1.6', margin: 0 }}>
+                  That is completely normal. Part of my engineering process is helping founders define user stories, data models, and API boundaries during technical scoping.
                 </p>
               </div>
 
-              <div className={styles.faqCard}>
-                <h3 className={styles.faqQuestion}>What if I don't have detailed specs yet?</h3>
-                <p className={styles.faqAnswer}>
-                  No problem. During our discovery phase, we will map out user stories, API endpoints, and data 
-                  architecture together. You don't need a 50-page document to begin.
-                </p>
-              </div>
-
-              <div className={styles.faqCard}>
-                <h3 className={styles.faqQuestion}>How do billing and payments work?</h3>
-                <p className={styles.faqAnswer}>
-                  Projects are scoped on fixed-price milestones (typically 50% kick-off, 50% production delivery) 
-                  so you never face unpredictable hourly overages or bloated invoices.
+              <div style={{ background: 'var(--bg-canvas)', border: '2px solid var(--border-main)', borderRadius: '12px', padding: '22px', boxShadow: 'var(--shadow-sm)' }}>
+                <h3 style={{ fontSize: '17px', fontWeight: 800, marginBottom: '8px' }}>How are project milestones billed?</h3>
+                <p style={{ fontSize: '13.5px', color: 'var(--text-muted)', lineHeight: '1.6', margin: 0 }}>
+                  Projects are scoped on fixed-price milestones tied to verifiable deliverables, so you never face unexpected billing surprises or open-ended hourly fees.
                 </p>
               </div>
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 };

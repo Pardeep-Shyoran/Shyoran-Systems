@@ -1,78 +1,133 @@
-import { Helmet } from 'react-helmet';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import SEO from '../../components/SEO/SEO';
+import { getServicesSchema, getWebPageSchema } from '../../utils/seoSchemas';
 import {
   BoltIcon,
-  StarIcon,
-  PinIcon,
-  ToolIcon,
+  CheckIcon,
+  TerminalIcon,
   SpeedPillarIcon,
-  MernPillarIcon,
-  AiPillarIcon,
-  CheckIcon
+  LockIcon,
+  ShieldIcon,
+  ToolIcon
 } from '../../components/Icons/Icons';
 import styles from './Services.module.css';
 
 const SERVICES_DATA = [
   {
-    id: 'fullstack',
-    index: '01',
-    badge: 'MERN CORE',
+    id: 'web-apps',
+    number: '01',
+    badge: 'CORE PRACTICE',
     badgeBg: '#FFE600',
     badgeColor: '#000000',
-    title: 'Full-Stack Web App Development',
-    category: 'MERN Architecture · High Velocity',
-    description:
-      'End-to-end web engineering specialized in the MERN stack (MongoDB, Express, React 19, Node.js). We build responsive, robust, and clean architectures crafted for real users and rapid scaling.',
+    title: 'Custom Web Application Development',
+    category: 'Full-Stack Web Engineering · High Velocity',
+    scopeSlug: 'Custom Web Applications',
+    problem:
+      'Off-the-shelf software and generic website templates cannot handle proprietary operations, bespoke workflows, or unique customer-facing interactions. Rigid platforms slow down your team and lock your business into ongoing subscription bloat.',
+    whoItsFor:
+      'Seed-stage founders needing a customer-ready web MVP, and growing businesses replacing clunky legacy software or spreadsheets with a unified, high-performance web platform.',
     deliverables: [
-      'Modern React 19 single-page apps with optimistic UI state and sub-second renders',
-      'RESTful & GraphQL APIs with Express and Node.js with strict validation',
-      'Scalable MongoDB Atlas document modeling with compound indexing',
-      'JWT/OAuth2 secure authentication and role-based access control (RBAC)',
-      '100% production Dockerization with automated CI/CD deployment pipelines'
+      'Modern React 19 single-page application with responsive neo-brutalist UI and sub-second renders',
+      'High-throughput RESTful or GraphQL API built with Node.js and Express with strict validation',
+      'Normalized database architecture in PostgreSQL or MongoDB Atlas with compound indexing',
+      'Stateless JWT/OAuth2 authentication and role-based access control (RBAC)',
+      '100% production Dockerization with automated CI/CD staging deployment pipelines'
     ],
-    tech: ['React 19', 'Node.js', 'Express', 'MongoDB Atlas', 'Vite', 'TypeScript', 'Tailwind/CSS Modules'],
-    scopeQuery: 'Full-Stack MERN App',
-    specCode: `// Architecture Spec: MERN Core Web Platform
+    tech: ['React 19', 'TypeScript', 'Node.js', 'Express', 'MongoDB Atlas', 'PostgreSQL', 'Vite', 'Docker'],
+    example: {
+      name: 'ApexHealth Diagnostics & OmniFlow Admin',
+      metric: 'Sub-40ms response · AES-256 FLE',
+      image: '/images/apexhealth_dashboard.jpg',
+      caseStudyId: 'apexhealth',
+      description: 'Production clinical dashboard and enterprise knowledge portal with strict RBAC and encrypted data handling.'
+    },
+    specCode: `// Architecture Spec: Custom Web Application
 {
-  "runtime": "Node.js (LTS) / Express Gateway",
-  "client": "React 19 + Vite (Zero Bloat)",
-  "database": "MongoDB Atlas Multi-Region Cluster",
-  "auth": "Stateless JWT + HttpOnly Cookies + OAuth2",
-  "caching": "Redis Cache Layer for Query Speeds < 15ms",
-  "testing": "End-to-End Vitest + Playwright Integration",
-  "deploy": "Docker Container on AWS ECS with Auto-Scale"
-}`,
-    timeline: '2 - 4 Weeks',
-    throughput: 'Sub-30ms API Latency'
+  "client": "React 19 + TypeScript + Scoped CSS Modules",
+  "api": "Node.js (LTS) / Express Gateway with Zod validation",
+  "database": "PostgreSQL / MongoDB Atlas Multi-Region Cluster",
+  "auth": "Stateless JWT + HttpOnly Cookies + OAuth2 Social",
+  "caching": "Redis Cache Layer for query speeds < 15ms",
+  "testing": "Vitest unit tests + Playwright E2E smoke tests",
+  "deploy": "Docker containerized on AWS ECS with auto-scaling"
+}`
   },
   {
-    id: 'ai-llm',
-    index: '02',
-    badge: 'AI NATIVE',
+    id: 'saas-products',
+    number: '02',
+    badge: 'FLAGSHIP MVP',
     badgeBg: '#0038FF',
     badgeColor: '#FFFFFF',
-    title: 'AI & LLM Integration',
-    category: 'Generative AI · Autonomous Agents',
-    description:
-      'We inject modern intelligence into your applications. From production RAG pipelines over proprietary enterprise knowledge to autonomous agent workflows and contextual customer chatbots.',
+    title: 'SaaS Product Development (MVP to Scale)',
+    category: 'Subscription Architecture · Multi-Tenant Infrastructure',
+    scopeSlug: 'SaaS Product Development',
+    problem:
+      'Building a SaaS product requires coordinating multi-tenant data isolation, recurring billing, seat management, authentication, and background worker queues. An unmaintainable MVP will break when initial customer traction arrives.',
+    whoItsFor:
+      'Bootstrapped software founders, venture-backed startups, and companies launching a commercial subscription product seeking to validate demand and generate revenue in weeks, not months.',
     deliverables: [
-      'Context-augmented RAG systems using vector databases (Pinecone, Atlas Vector)',
-      'Streaming conversational chatbots with low-latency Server-Sent Events (SSE)',
-      'Autonomous tool-calling agents that interact with APIs, databases, and cron tasks',
-      'Structured schema generation with OpenAI, Anthropic Claude, and Gemini SDKs',
-      'Token governance, prompt evaluation benchmarks, and rate-limiting protections'
+      'Multi-tenant workspace architecture with organization-level data isolation',
+      'Stripe Billing & subscription tiers with idempotent webhook reconciliation to prevent billing discrepancies',
+      'Self-serve customer onboarding, team invitations, and granular role permissions',
+      'Transactional email delivery (Resend / SendGrid) and customer event audit logs',
+      'Founder analytics portal with real-time MRR, churn indicators, and usage analytics'
     ],
-    tech: ['OpenAI API', 'Anthropic Claude', 'LangChain', 'Atlas Vector', 'Pinecone', 'Python/FastAPI', 'SSE'],
-    scopeQuery: 'AI / LLM Integration & Chatbots',
-    specCode: `// AI Pipeline: Contextual RAG & Agentic Execution
+    tech: ['React 19', 'Node.js', 'PostgreSQL', 'MongoDB', 'Stripe Billing', 'Redis', 'Docker', 'AWS ECS'],
+    example: {
+      name: 'NexusCommerce Global B2B Platform',
+      metric: '< 95ms TTFB · 100% Idempotent',
+      image: '/images/nexus_dashboard.jpg',
+      caseStudyId: 'nexus-commerce',
+      description: 'Multi-currency subscription checkout engine with automated invoice generation and customer account portals.'
+    },
+    specCode: `// Architecture Spec: SaaS Subscription Engine
+{
+  "tenancy": "Logical multi-tenancy with strict tenant_id isolation",
+  "billing": "Stripe Custom Connect + Idempotent Webhook Workers",
+  "concurrency": "Safe ACID multi-document transactions in MongoDB / Postgres",
+  "idempotency": "Redis TTL hash locks preventing duplicate charges",
+  "onboarding": "Automated email invitations + Magic link verification",
+  "telemetry": "Audit trail logging for all subscription lifecycle events"
+}`
+  },
+  {
+    id: 'ai-automation',
+    number: '03',
+    badge: 'AI NATIVE',
+    badgeBg: '#FFE600',
+    badgeColor: '#000000',
+    title: 'AI Integration & Workflow Automation',
+    category: 'Enterprise RAG Pipelines · Autonomous Agent Workflows',
+    scopeSlug: 'AI Integration & Automation',
+    problem:
+      'Companies possess valuable proprietary knowledge scattered across documents, tickets, and codebases. Generic off-the-shelf chatbots hallucinate, lack private business context, and risk leaking sensitive enterprise IP to public model trainers.',
+    whoItsFor:
+      'B2B software companies, customer support teams with high ticket volume, and operations teams seeking to automate repetitive data analysis without sacrificing accuracy or privacy.',
+    deliverables: [
+      'Hybrid Retrieval-Augmented Generation (RAG) using dense vector embeddings and keyword BM25 search',
+      'Low-latency streaming conversational interfaces with Server-Sent Events (SSE)',
+      'Autonomous tool-calling agents that safely query databases, trigger webhooks, and summarize records',
+      'Token consumption governance, rate-limiting thresholds, and prompt cost guardrails',
+      '100% private data isolation ensuring enterprise documents are never used for public model training'
+    ],
+    tech: ['OpenAI API', 'Claude 3.5 Sonnet', 'Atlas Vector Search', 'Pinecone', 'LangChain', 'Python / Node.js', 'SSE'],
+    example: {
+      name: 'OmniFlow AI Enterprise RAG Engine',
+      metric: '42ms Vector Latency · < 65ms TTFT',
+      image: '/images/omniflow_dashboard.jpg',
+      caseStudyId: 'omniflow-ai',
+      description: 'Generative AI search across 100k+ technical documentation pages with streaming responses and citation verification.'
+    },
+    specCode: `// Architecture Spec: Contextual Vector RAG Pipeline
 import { Claude35Sonnet, OpenAIEmbeddings } from "@shyoran/ai";
 import { vectorSearch } from "./atlas-vector";
 
 export async function processUserQuery({ query, userContext }) {
-  // 1. Generate query embedding vector
+  // 1. Generate query embedding vector (1536 dims)
   const embedding = await OpenAIEmbeddings.embed(query);
   
-  // 2. Hybrid search over customer data
+  // 2. Hybrid search over verified knowledge docs
   const contextDocs = await vectorSearch(embedding, { limit: 5 });
   
   // 3. Synthesize streaming response with tool capabilities
@@ -81,272 +136,251 @@ export async function processUserQuery({ query, userContext }) {
     context: contextDocs,
     tools: [triggerWebhook, updateDatabaseRecord]
   });
-}`,
-    timeline: '1 - 3 Weeks',
-    throughput: 'Real-time Streaming'
+}`
   },
   {
-    id: 'ecommerce',
-    index: '03',
-    badge: 'MONETIZATION',
-    badgeBg: '#FFE600',
-    badgeColor: '#000000',
-    title: 'E-Commerce Platforms & Payments',
-    category: 'Stripe · Razorpay · Secure Checkout',
-    description:
-      'Custom transactional platforms engineered for conversion and rock-solid financial integrity. We build complete storefronts, subscription engines, customer checkout, and comprehensive admin portals.',
+    id: 'api-backend',
+    number: '04',
+    badge: 'HIGH CONCURRENCY',
+    badgeBg: '#047857',
+    badgeColor: '#FFFFFF',
+    title: 'API & Backend Architecture',
+    category: 'High-Throughput Services · Cloud Deployment & Microservices',
+    scopeSlug: 'API & Backend Architecture',
+    problem:
+      'Frontends and mobile apps stall, crash, or experience high latency when the underlying backend lacks connection pooling, database indexing, caching, or reliable third-party webhook handling.',
+    whoItsFor:
+      'Teams with an existing client frontend or mobile app that needs a scalable backend, products hitting performance bottlenecks under load, or platforms requiring complex third-party SaaS integrations.',
     deliverables: [
-      'Multi-currency payment gateway integrations (Stripe, Razorpay, Lemon Squeezy)',
-      'Idempotent webhook reconciliation to prevent duplicate charges or missed orders',
-      'Dynamic product catalogs, inventory tracking, and discount rule engines',
-      'Comprehensive admin dashboards for sales metrics, refunds, and shipping status',
-      'Encrypted customer accounts, order history tracking, and automated invoice delivery'
+      'High-throughput RESTful or GraphQL APIs with OpenAPI / Swagger documentation',
+      'Database indexing, compound queries, and connection pool optimization',
+      'Redis caching layers and Pub/Sub backplanes for sub-15ms data access',
+      'Resilient webhook orchestration with deduplication, retry queues, and idempotency keys',
+      'Hardened AWS cloud infrastructure (ECS Fargate, S3, CloudFront CDN, SSL/Nginx)'
     ],
-    tech: ['Stripe API', 'Razorpay', 'MongoDB', 'Express', 'React 19', 'Webhooks', 'Tailwind'],
-    scopeQuery: 'E-Commerce & Payment Systems',
-    specCode: `// E-Commerce Payment Orchestration
-import Stripe from "stripe";
-import { OrderModel } from "../models/Order";
-
-export async function handleStripeWebhook(event) {
-  switch (event.type) {
-    case "checkout.session.completed": {
-      const session = event.data.object;
-      
-      // Atomic order fulfillment & invoice generation
-      await OrderModel.findByIdAndUpdate(session.client_reference_id, {
-        status: "PAID",
-        paymentIntentId: session.payment_intent,
-        paidAt: new Date()
-      });
-      
-      // Dispatch background confirmation email & webhook
-      await queueNotification({ orderId: session.client_reference_id });
-      break;
-    }
-  }
-}`,
-    timeline: '3 - 5 Weeks',
-    throughput: '99.99% Transaction SLA'
+    tech: ['Node.js', 'Express', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'AWS ECS', 'Nginx', 'GitHub Actions'],
+    example: {
+      name: 'SyncPulse Distributed WebSocket Engine',
+      metric: '14ms Sync Latency · 62% MsgPack',
+      image: '/images/syncpulse_dashboard.jpg',
+      caseStudyId: 'syncpulse',
+      description: 'Distributed Redis pub/sub backplane with conflict-free state synchronization and optimistic client updates.'
+    },
+    specCode: `// Architecture Spec: High-Concurrency Backend
+{
+  "runtime": "Node.js (LTS) Cluster with async event loops",
+  "caching": "Redis Cluster (Pub/Sub backplane + Sub-10ms cache)",
+  "db_pooling": "PostgreSQL connection pooling (pgBouncer) / Mongo Atlas",
+  "idempotency": "Distributed Redis lock keys preventing duplicate execution",
+  "security": "Rate limiting, CORS guards, helmet headers & input sanitization",
+  "cloud": "Docker on AWS ECS Fargate with zero-downtime rolling deploys"
+}`
   },
   {
-    id: 'realtime',
-    index: '04',
-    badge: 'REAL-TIME',
+    id: 'maintenance-audits',
+    number: '05',
+    badge: 'LONG-TERM RELIABILITY',
     badgeBg: '#000000',
     badgeColor: '#FFFFFF',
-    title: 'Real-Time Systems & Collaboration',
-    category: 'WebSockets · State Sync · Live Rooms',
-    description:
-      'High-concurrency systems built for real-time collaboration, team messaging, collaborative workspaces, and live notifications. Zero lag, optimistic client updates, and persistent state.',
+    title: 'Maintenance, Security Audits & Code Retainers',
+    category: 'Codebase Stewardship · Performance Profiling & Priority Support',
+    scopeSlug: 'Maintenance & Code Audits',
+    problem:
+      'Software decays if neglected. Dependencies accumulate critical CVE vulnerabilities, cloud hosting bills silently creep up, and unexpected production bugs erode customer trust when no technical lead is on call.',
+    whoItsFor:
+      'Post-launch software products, founders with an existing codebase needing modernization, and teams without an in-house senior technical lead who need guaranteed engineering availability.',
     deliverables: [
-      'Bidirectional WebSocket and Socket.io architecture with automatic reconnection',
-      'Multi-user collaborative rooms, live cursor tracking, and presence awareness',
-      'Instant team chat, threaded messaging, and rich media attachments',
-      'Real-time event broadcasting powered by Redis Pub/Sub backplanes',
-      'Optimistic client-side caching with conflict resolution and state sync'
+      'Dependency vulnerability audits and automated security patch updates',
+      'Full-stack performance profiling, memory leak detection, and query optimization',
+      'Automated database backup verification and disaster recovery protocols',
+      'Cloud cost optimization (rightsizing AWS containers, DB instances, and CDN routing)',
+      'Guaranteed monthly engineering hours for bug fixing, feature enhancements, and emergency SLA'
     ],
-    tech: ['Socket.io', 'WebSockets', 'Redis Pub/Sub', 'Node.js', 'React 19', 'MongoDB Streams'],
-    scopeQuery: 'Real-Time Collaboration & Messaging',
-    specCode: `// Real-Time Socket.io & Redis Cluster Backplane
-import { Server } from "socket.io";
-import { createAdapter } from "@socket.io/redis-adapter";
-import { pubClient, subClient } from "../config/redis";
-
-export function initializeRealTimeServer(httpServer) {
-  const io = new Server(httpServer, {
-    cors: { origin: process.env.CLIENT_ORIGIN, credentials: true }
-  });
-  
-  // Distributed Redis Adapter for infinite horizontal scaling
-  io.adapter(createAdapter(pubClient, subClient));
-  
-  io.on("connection", (socket) => {
-    socket.on("join-room", (roomId) => socket.join(roomId));
-    socket.on("document-mutation", (payload) => {
-      socket.to(payload.roomId).emit("document-updated", payload);
-    });
-  });
-}`,
-    timeline: '2 - 3 Weeks',
-    throughput: '< 10ms Sync Latency'
-  },
-  {
-    id: 'cloud-api',
-    index: '05',
-    badge: 'INFRASTRUCTURE',
-    badgeBg: '#000000',
-    badgeColor: '#FFFFFF',
-    title: 'API Design, Cloud Deployment & Integrations',
-    category: 'AWS Cloud · Docker · Microservices',
-    description:
-      'Production-grade cloud architecture and API design engineered to survive product launch traffic. We deploy containerized microservices to AWS, configure CDNs, and bridge third-party SaaS ecosystems.',
-    deliverables: [
-      'Clean, documented REST & GraphQL APIs with Swagger/OpenAPI documentation',
-      'AWS Cloud hosting configured with ECS Fargate, S3 buckets, and CloudFront CDN',
-      'Docker containerization with multi-stage builds for minimal image footprints',
-      'Third-party integrations: CRMs, analytics, transactional email (Resend/SendGrid)',
-      'Automated GitHub Actions CI/CD pipelines with zero-downtime rolling deploys'
-    ],
-    tech: ['AWS ECS', 'AWS S3', 'CloudFront', 'Docker', 'GitHub Actions', 'Nginx', 'Postman'],
-    scopeQuery: 'API Design & Cloud Deployment (AWS)',
-    specCode: `# AWS ECS Fargate Container Specification
-version: "3.8"
-services:
-  shyoran-api:
-    image: 123456789.dkr.ecr.ap-south-1.amazonaws.com/shyoran-api:latest
-    ports:
-      - "5000:5000"
-    environment:
-      NODE_ENV: production
-      PORT: 5000
-      AWS_REGION: ap-south-1
-    deploy:
-      replicas: 2
-      update_config:
-        order: start-first
-      resources:
-        limits:
-          cpus: "1.0"
-          memory: 2048M
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
-      interval: 15s
-      timeout: 5s
-      retries: 3`,
-    timeline: '1 - 2 Weeks',
-    throughput: 'Zero-Downtime Deploys'
+    tech: ['GitHub Actions', 'AWS CloudWatch', 'Sentry', 'Docker', 'Linux', 'Vitest', 'Nginx'],
+    example: {
+      name: '30-Day Launch Warranty & Retainers',
+      metric: 'Zero High CVEs · Verified SLA',
+      image: '/images/omniflow_dashboard.jpg',
+      caseStudyId: 'omniflow-ai',
+      description: 'Comprehensive environment monitoring, automated staging builds, and direct architect Slack/email support.'
+    },
+    specCode: `// Maintenance & Engineering Retainer SLA
+{
+  "code_audits": "Weekly automated dependency security and CVE scanning",
+  "uptime_monitoring": "Sentry real-time exception tracking + CloudWatch metrics",
+  "sla_guarantee": "< 4 hour response time for critical production incidents",
+  "backups": "Automated daily database snapshots with verified test restores",
+  "ownership": "Continuous documentation updates and clean Git commit history"
+}`
   }
 ];
 
+const FILTER_TABS = [
+  { id: 'all', label: 'All Services (5)' },
+  { id: 'web-apps', label: 'Web Applications' },
+  { id: 'saas-products', label: 'SaaS Platforms' },
+  { id: 'ai-automation', label: 'AI & Automation' },
+  { id: 'api-backend', label: 'Backend & APIs' },
+  { id: 'maintenance-audits', label: 'Maintenance & Audits' }
+];
+
 const Services = () => {
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [activeSpecId, setActiveSpecId] = useState(null);
+  const [copiedSpecId, setCopiedSpecId] = useState(null);
+
+  const filteredServices =
+    activeFilter === 'all'
+      ? SERVICES_DATA
+      : SERVICES_DATA.filter((s) => s.id === activeFilter);
+
+  const toggleSpec = (id) => {
+    setActiveSpecId(activeSpecId === id ? null : id);
+  };
+
+  const handleCopySpec = (id, code) => {
+    navigator.clipboard.writeText(code);
+    setCopiedSpecId(id);
+    setTimeout(() => setCopiedSpecId(null), 2000);
+  };
+
+  const servicesSchemas = [
+    getWebPageSchema(
+      'https://shyoran.systems/services',
+      'Software Engineering Services — Shyoran Systems',
+      'Explore verified software engineering services by Shyoran Systems: custom web applications, SaaS platforms, AI/LLM integration, backend APIs, and maintenance retainers.'
+    ),
+    getServicesSchema()
+  ];
+
   return (
     <>
-      <Helmet>
-        <title>Engineering Services — Shyoran Systems | MERN Stack &amp; AI Solutions</title>
-        <meta
-          name="description"
-          content="Explore Shyoran Systems engineering services: MERN stack web applications, AI/LLM integrations, e-commerce platforms, real-time collaboration systems, and AWS cloud deployment."
-        />
-      </Helmet>
+      <SEO
+        title="Software Engineering Services — Shyoran Systems | Web, SaaS, AI & Cloud"
+        description="Explore verified software engineering services by Shyoran Systems: custom web applications, SaaS platforms, AI/LLM integration, backend APIs, and maintenance retainers. Direct senior engineer practice."
+        canonicalUrl="https://shyoran.systems/services"
+        schema={servicesSchemas}
+      />
 
-      <main className={styles.servicesMain}>
+      <div className={styles.servicesMain}>
         {/* HERO SECTION */}
         <section className={styles.heroSection}>
           <div className="wrap">
             <div className={styles.heroBadgeRow}>
-              <div className="badge-pill" style={{ background: 'var(--accent-yellow)', color: 'var(--text-main)' }}>
+              <div className="badge-pill badge-yellow">
                 <span><BoltIcon size={12} /></span>
-                <span>ENGINEERING CAPABILITIES // OFFICIAL CATALOG</span>
+                <span>ENGINEERING CAPABILITIES // CLIENT SERVICES CATALOG</span>
               </div>
-              <span className={`${styles.handSticker} hand`}>
-                MERN Architecture + Modern LLM Engineering
+              <span className="sticker-hand">
+                100% Direct Senior Engineer Practice
               </span>
             </div>
 
             <h1 className={`${styles.heroTitle} display-title`}>
-              FULL-STACK SOFTWARE &amp; <br />
-              <span className="highlight-yellow">AI-INTEGRATED WEB SOLUTIONS.</span>
+              SOFTWARE SERVICES BUILT FOR <br />
+              <span className="highlight-yellow">REAL PRODUCT OUTCOMES.</span>
             </h1>
 
             <p className={styles.heroLead}>
-              Shyoran Systems is a software development studio building full-stack web applications and 
-              AI-integrated products for startups, small businesses, and independent founders. 
-              <strong> We specialize in the MERN stack</strong> — building everything from real-time 
-              collaboration tools and e-commerce platforms to custom internal tools and AI-powered features.
+              We partner with founders and business teams to build custom web applications, multi-tenant SaaS products, 
+              and AI-augmented systems. Every engagement is led directly by systems architect Pardeep Shyoran—delivering 
+              maintainable, production-ready code in transparent milestone sprints.
             </p>
 
             <div className={styles.heroCtas}>
-              <Link to="/contact" className="btn-brutal btn-brutal-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                <span>START YOUR BUILD</span>
+              <Link to="/contact" className="btn-brutal btn-brutal-primary btn-lg">
+                <span>DISCUSS YOUR PROJECT</span>
                 <BoltIcon size={14} />
               </Link>
-              <a href="#services-list" className="btn-brutal btn-brutal-outline">
-                EXPLORE 5 PILLARS ↓
+              <a href="#services-catalog" className="btn-brutal btn-brutal-outline btn-lg">
+                EXPLORE CATALOG ↓
               </a>
             </div>
 
             <div className={styles.heroMeta}>
               <div className={styles.heroMetaItem}>
                 <span className={styles.metaDot}></span>
-                <span>100% Direct Senior Engineer</span>
+                <span>Direct Engineer Line (No Account Managers)</span>
               </div>
               <div className={styles.heroMetaItem}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                  <StarIcon size={12} /> Specialized MERN &amp; LLM Stack
-                </span>
+                <span>100% Intellectual Property Transfer</span>
               </div>
               <div className={styles.heroMetaItem}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                  <BoltIcon size={12} /> 2-4 Week Typical MVP Delivery
-                </span>
+                <span>Fixed-Scope Milestone Pricing</span>
               </div>
               <div className={styles.heroMetaItem}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                  <PinIcon size={12} /> Sirsa, Haryana, India · Global Remote
-                </span>
+                <span>30-Day Post-Launch Warranty</span>
               </div>
             </div>
           </div>
         </section>
 
-        {/* QUICK STICKY ANCHOR NAV */}
-        <div className={styles.serviceNavSection}>
+        {/* INTERACTIVE SERVICE FILTER TABS */}
+        <div id="services-catalog" className={styles.serviceNavSection}>
           <div className="wrap">
-            <div className={styles.serviceNavRow}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-muted)', marginRight: '6px' }}>
-                JUMP TO:
+            <div className={styles.serviceNavRow} role="tablist" aria-label="Filter Services">
+              <span className={styles.navLabel} id="filter-service-label">
+                FILTER SERVICE:
               </span>
-              <a href="#fullstack" className={styles.serviceNavBtn}>
-                01. Full-Stack MERN
-              </a>
-              <a href="#ai-llm" className={styles.serviceNavBtn}>
-                02. AI &amp; LLMs
-              </a>
-              <a href="#ecommerce" className={styles.serviceNavBtn}>
-                03. E-Commerce
-              </a>
-              <a href="#realtime" className={styles.serviceNavBtn}>
-                04. Real-Time Systems
-              </a>
-              <a href="#cloud-api" className={styles.serviceNavBtn}>
-                05. Cloud &amp; AWS
-              </a>
+              {FILTER_TABS.map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeFilter === tab.id}
+                  className={`${styles.serviceNavBtn} ${activeFilter === tab.id ? styles.serviceNavBtnActive : ''}`}
+                  onClick={() => setActiveFilter(tab.id)}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
           </div>
         </div>
 
         {/* DETAILED SERVICES CATALOG */}
-        <section id="services-list" className={styles.servicesSection}>
+        <section className={styles.servicesSection}>
           <div className="wrap">
-            {SERVICES_DATA.map((srv) => (
-              <div key={srv.id} id={srv.id} className={`${styles.serviceCard} reveal`}>
-                <div className={styles.serviceHeader}>
-                  <div className={styles.serviceIdentity}>
-                    <span className={styles.serviceIndex}>{srv.index}</span>
-                    <div className={styles.serviceTitleGroup}>
-                      <h2>{srv.title}</h2>
-                      <span className={styles.serviceCategoryBadge}>// {srv.category}</span>
+            <div className={styles.servicesGrid}>
+              {filteredServices.map((srv) => (
+                <article key={srv.id} id={srv.id} className={styles.serviceCard}>
+                  {/* Service Header */}
+                  <div className={styles.serviceHeader}>
+                    <div className={styles.serviceIdentity}>
+                      <span className={styles.serviceNumber}>{srv.number}</span>
+                      <div className={styles.serviceTitleGroup}>
+                        <h2>{srv.title}</h2>
+                        <span className={styles.serviceCategoryBadge}>// {srv.category}</span>
+                      </div>
                     </div>
+                    <span
+                      className={styles.serviceBadgePill}
+                      style={{ background: srv.badgeBg, color: srv.badgeColor }}
+                    >
+                      {srv.badge}
+                    </span>
                   </div>
-                  <span
-                    className={styles.serviceBadgePill}
-                    style={{ background: srv.badgeBg, color: srv.badgeColor }}
-                  >
-                    {srv.badge}
-                  </span>
-                </div>
 
-                <div className={styles.serviceBody}>
-                  {/* Left Column: Overview, Deliverables, Tech */}
-                  <div className={styles.serviceOverview}>
-                    <div>
-                      <p className={styles.serviceDescription}>{srv.description}</p>
+                  {/* Service Main Content */}
+                  <div className={styles.serviceBody}>
+                    <div className={styles.serviceDetailsCol}>
+                      {/* Business Problem */}
+                      <div className={styles.sectionBlock}>
+                        <h3 className={styles.blockHeading}>The Business Problem</h3>
+                        <p className={styles.blockText}>{srv.problem}</p>
+                      </div>
 
+                      {/* Who It Suits */}
+                      <div className={styles.sectionBlock}>
+                        <h3 className={styles.blockHeading}>Who This Service Suits</h3>
+                        <p className={styles.blockText}>{srv.whoItsFor}</p>
+                      </div>
+
+                      {/* What's Included */}
                       <div className={styles.deliverablesBox}>
                         <div className={styles.boxTitle}>
-                          <span><BoltIcon size={13} /></span>
-                          <span>PRODUCTION DELIVERABLES</span>
+                          <BoltIcon size={13} />
+                          <span>WHAT IS INCLUDED (KEY DELIVERABLES)</span>
                         </div>
                         <ul className={styles.deliverablesList}>
                           {srv.deliverables.map((item, idx) => (
@@ -360,147 +394,234 @@ const Services = () => {
                         </ul>
                       </div>
 
-                      <div className={styles.boxTitle} style={{ marginTop: '20px' }}>
-                        <span><ToolIcon size={13} /></span>
-                        <span>PRIMARY TECH STACK</span>
+                      {/* Tech Stack Badges */}
+                      <div className={styles.techStackRow}>
+                        <div className={styles.boxTitle}>
+                          <ToolIcon size={13} />
+                          <span>TECHNOLOGY APPLIED</span>
+                        </div>
+                        <div className={styles.techPillsGroup}>
+                          {srv.tech.map((t, tIdx) => (
+                            <span key={tIdx} className={styles.techPill}>
+                              {t}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                      <div className={styles.techPillsGroup}>
-                        {srv.tech.map((t, tIdx) => (
-                          <span key={tIdx} className={styles.techPill}>
-                            {t}
-                          </span>
-                        ))}
+
+                      {/* Action CTAs */}
+                      <div className={styles.serviceCtaRow}>
+                        <Link
+                          to={`/contact?scope=${encodeURIComponent(srv.scopeSlug)}`}
+                          className="btn-brutal btn-brutal-primary btn-md"
+                        >
+                          <span>DISCUSS THIS SERVICE</span>
+                          <BoltIcon size={13} />
+                        </Link>
+                        <button
+                          type="button"
+                          className={styles.specToggleBtn}
+                          onClick={() => toggleSpec(srv.id)}
+                          aria-expanded={activeSpecId === srv.id}
+                          aria-controls={`spec-drawer-${srv.id}`}
+                        >
+                          <TerminalIcon size={14} />
+                          <span>{activeSpecId === srv.id ? 'Hide Technical Spec' : 'Inspect Technical Spec'}</span>
+                        </button>
                       </div>
                     </div>
 
-                    <div className={styles.serviceCtaRow}>
-                      <Link
-                        to={`/contact?scope=${encodeURIComponent(srv.scopeQuery)}`}
-                        className="btn-brutal btn-brutal-primary"
-                        style={{ padding: '10px 22px', fontSize: '14px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
-                      >
-                        <span>SCOPE {srv.title.toUpperCase()}</span>
-                        <BoltIcon size={13} />
-                      </Link>
-                      <a
-                        href={`mailto:hello@pardeep-shyoran.me?subject=${encodeURIComponent(
-                          `Inquiry regarding ${srv.title}`
-                        )}`}
-                        className="btn-brutal btn-brutal-outline"
-                        style={{ padding: '10px 20px', fontSize: '14px' }}
-                      >
-                        DIRECT EMAIL ↗
-                      </a>
+                    {/* Verified Reference & Visual Proof */}
+                    <div className={styles.serviceVisualCol}>
+                      <div className={styles.proofCard}>
+                        <div className={styles.proofHeader}>
+                          <span className={styles.proofTag}>VERIFIED REFERENCE</span>
+                          <span className={styles.proofMetric}>{srv.example.metric}</span>
+                        </div>
+
+                        {/* Real Project Visual Preview */}
+                        <div className={styles.previewFrame}>
+                          <img
+                            src={srv.example.image}
+                            alt={`${srv.example.name} dashboard interface preview`}
+                            className={styles.previewImg}
+                            loading="lazy"
+                          />
+                        </div>
+
+                        <div className={styles.proofFooter}>
+                          <h4 className={styles.proofTitle}>{srv.example.name}</h4>
+                          <p className={styles.proofDesc}>{srv.example.description}</p>
+                          <Link
+                            to={`/work/${srv.example.caseStudyId || 'omniflow-ai'}`}
+                            className={styles.viewStudyLink}
+                            aria-label={`View ${srv.example.name} Architecture Case Study`}
+                          >
+                            <span>View Architecture Case Study →</span>
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Right Column: Code Blueprint Spec */}
-                  <div className={styles.serviceSpecCol}>
-                    <div className={styles.specBar}>
-                      <div className={styles.specDots}>
-                        <span className={styles.dot} style={{ background: '#FF5F56' }}></span>
-                        <span className={styles.dot} style={{ background: '#FFBD2E' }}></span>
-                        <span className={styles.dot} style={{ background: '#27C93F' }}></span>
+                  {/* Expandable Architecture Blueprint Drawer */}
+                  {activeSpecId === srv.id && (
+                    <div id={`spec-drawer-${srv.id}`} className={styles.specDrawer}>
+                      <div className={styles.specDrawerBar}>
+                        <div className={styles.specDots} aria-hidden="true">
+                          <span className={styles.dot} style={{ background: '#FF5F56' }}></span>
+                          <span className={styles.dot} style={{ background: '#FFBD2E' }}></span>
+                          <span className={styles.dot} style={{ background: '#27C93F' }}></span>
+                          <span className={styles.specTitle}>{srv.id}.blueprint.spec</span>
+                        </div>
+                        <button
+                          type="button"
+                          className={styles.copySpecBtn}
+                          onClick={() => handleCopySpec(srv.id, srv.specCode)}
+                          aria-live="polite"
+                        >
+                          {copiedSpecId === srv.id ? '✓ COPIED!' : 'COPY SPEC'}
+                        </button>
                       </div>
-                      <span className={styles.specTitle}>{srv.id}.blueprint.spec</span>
+                      <div className={styles.specBody}>
+                        <pre className={styles.specPre}>
+                          <code>{srv.specCode}</code>
+                        </pre>
+                      </div>
                     </div>
-
-                    <div className={styles.specBody}>
-                      <pre className={styles.specPre}>
-                        <code>{srv.specCode}</code>
-                      </pre>
-                    </div>
-
-                    <div className={styles.specMetrics}>
-                      <span>
-                        TIMELINE: <strong>{srv.timeline}</strong>
-                      </span>
-                      <span>
-                        BENCHMARK: <strong>{srv.throughput}</strong>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+                  )}
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* WHY DIRECT SENIOR PRACTICE */}
-        <section className={styles.whySection}>
+        {/* HONEST GUIDANCE NOTE: MOBILE & CROSS-PLATFORM STRATEGY */}
+        <section className={styles.advisorySection}>
           <div className="wrap">
-            <div className={`${styles.sectionHeader} reveal`}>
-              <div className="badge-pill" style={{ background: '#FFFFFF', color: 'var(--text-main)', marginBottom: '14px' }}>
-                <span>// OPERATING ADVANTAGE</span>
+            <div className={styles.advisoryCard}>
+              <div className={styles.advisoryHeader}>
+                <div className="badge-pill badge-yellow">
+                  <span>// HONEST TECHNICAL GUIDANCE</span>
+                </div>
+                <h2 className="display-title" style={{ fontSize: 'clamp(26px, 3.5vw, 42px)' }}>
+                  MOBILE STRATEGY: RESPONSIVE PWAs VS. NATIVE APPS
+                </h2>
               </div>
-              <h2 className="display-title" style={{ fontSize: 'clamp(32px, 5vw, 54px)' }}>
-                WHY FOUNDERS CHOOSE <span className="highlight-yellow">SHYORAN SYSTEMS</span>
+              <div className={styles.advisoryContent}>
+                <p>
+                  <strong>Why We Don't Build Traditional App-Store-Only Native Apps:</strong> Shyoran Systems specializes in 
+                  Mobile-First Responsive Web Applications and Progressive Web Apps (PWAs). For the majority of startups and SaaS businesses, 
+                  a responsive web application delivers identical user experience, instant deployment without waiting for App Store approval 
+                  reviews, zero 30% platform tax, and a single maintainable codebase for desktop, tablet, iOS, and Android.
+                </p>
+                <p>
+                  <strong>When You Genuine Need Native:</strong> If your project strictly relies on low-level device hardware (such as 
+                  Bluetooth LE peripheral pairing, continuous background GPS tracking, or Apple HealthKit APIs), a native iOS/Android build 
+                  is required. We will honestly evaluate your requirements during discovery—and if your product genuinely requires native 
+                  Swift or Kotlin, we will advise you upfront rather than selling you an unsuitable solution.
+                </p>
+                <div className={styles.advisoryAction}>
+                  <Link to="/contact?scope=Mobile+%26+Responsive+PWAs" className="btn-brutal btn-brutal-primary btn-sm">
+                    <span>DISCUSS MOBILE &amp; PWA STRATEGY</span>
+                    <BoltIcon size={12} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ENGAGEMENT PRINCIPLES */}
+        <section className={styles.principlesSection}>
+          <div className="wrap">
+            <div className={styles.sectionHeader}>
+              <div className="badge-pill badge-white" style={{ marginBottom: '12px' }}>
+                <span>// ENGAGEMENT STANDARDS</span>
+              </div>
+              <h2 className="display-title" style={{ fontSize: 'clamp(28px, 4vw, 48px)' }}>
+                HOW EVERY BUILD IS <span className="highlight-yellow">DELIVERED</span>
               </h2>
               <p className={styles.sectionSubtitle}>
-                We work lean and ship fast — ideal for founders who need a working product, not a six-month agency timeline.
+                Clear standards designed to eliminate agency bureaucracy and protect client investment.
               </p>
             </div>
 
-            <div className={styles.pillarsGrid}>
-              <div className={`${styles.pillarCard} reveal`}>
-                <span className={styles.pillarIcon}>
-                  <SpeedPillarIcon size={44} />
-                </span>
-                <h3>Speed Over Slide Decks</h3>
+            <div className={styles.principlesGrid}>
+              <div className={styles.principleCard}>
+                <div className={styles.principleIcon}>
+                  <BoltIcon size={24} />
+                </div>
+                <h3>Direct Engineer Line</h3>
                 <p>
-                  We don't bill you for endless kickoff meetings or middle-manager updates. From Day 1, we write 
-                  production code with continuous staging environments.
+                  You communicate directly with the engineer writing your schemas, implementing your endpoints, and 
+                  structuring your UI. Zero sales runaround or account manager latency.
                 </p>
               </div>
 
-              <div className={`${styles.pillarCard} reveal`}>
-                <span className={styles.pillarIcon}>
-                  <MernPillarIcon size={44} />
-                </span>
-                <h3>Specialized MERN Mastery</h3>
+              <div className={styles.principleCard}>
+                <div className={styles.principleIcon}>
+                  <LockIcon size={24} />
+                </div>
+                <h3>100% IP &amp; Code Ownership</h3>
                 <p>
-                  No generic generalists. We have spent years mastering MongoDB, Express, React, and Node.js to deliver 
-                  performant, clean, and easily maintainable architectures.
+                  All GitHub repositories, cloud infrastructure scripts, and intellectual property belong strictly 
+                  to your company from the first commit. No proprietary lock-in.
                 </p>
               </div>
 
-              <div className={`${styles.pillarCard} reveal`}>
-                <span className={styles.pillarIcon}>
-                  <AiPillarIcon size={44} />
-                </span>
-                <h3>AI-Augmented Velocity</h3>
+              <div className={styles.principleCard}>
+                <div className={styles.principleIcon}>
+                  <SpeedPillarIcon size={24} />
+                </div>
+                <h3>Fixed-Scope Milestones</h3>
                 <p>
-                  We combine deep architectural rigor with the latest LLM workflows to produce 3x the output of a 
-                  traditional 5-person agency team without the communication overhead.
+                  Every engagement is scoped with explicit deliverables and guaranteed milestone pricing. You never face 
+                  unpredictable hourly overages or bloated time-and-materials invoices.
+                </p>
+              </div>
+
+              <div className={styles.principleCard}>
+                <div className={styles.principleIcon}>
+                  <ShieldIcon size={24} />
+                </div>
+                <h3>30-Day Post-Launch Warranty</h3>
+                <p>
+                  We stand behind what we ship. Every production deployment includes 30 days of active environment 
+                  monitoring and bug fixes at zero additional cost.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* BOTTOM CTA */}
+        {/* BOTTOM FINAL CTA */}
         <section className={styles.ctaSection}>
           <div className="wrap">
             <div className={styles.ctaBox}>
               <div className={styles.ctaContent}>
-                <h2 className="display-title">LET'S BUILD YOUR PRODUCT</h2>
+                <h2 className="display-title">
+                  NOT SURE WHICH SERVICE YOU NEED?
+                </h2>
                 <p>
-                  Reach out to discuss your project — we'd love to hear what you're building. Average feasibility reply within 4 hours.
+                  Reach out to discuss your product architecture and timeline. We'll provide an honest feasibility review 
+                  and recommend the most cost-effective path to launch.
                 </p>
               </div>
+
               <div className={styles.ctaActions}>
-                <Link to="/contact" className="btn-brutal btn-brutal-yellow" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                  <span>START PROJECT SCOPE</span>
+                <Link to="/contact" className="btn-brutal btn-brutal-primary btn-lg">
+                  <span>DISCUSS YOUR PROJECT</span>
                   <BoltIcon size={14} />
                 </Link>
-                <a href="mailto:hello@pardeep-shyoran.me" className="btn-brutal btn-brutal-outline">
-                  EMAIL ARCHITECT ↗
+                <a href="mailto:hello@pardeep-shyoran.me?subject=Project%20Architecture%20Inquiry" className="btn-brutal btn-brutal-outline btn-lg">
+                  DIRECT EMAIL ↗
                 </a>
               </div>
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 };

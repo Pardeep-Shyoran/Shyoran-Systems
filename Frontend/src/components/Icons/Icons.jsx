@@ -13,6 +13,8 @@ export const BrandLogoIcon = ({ size = 16, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <path
@@ -37,6 +39,8 @@ export const ReactLogo = ({ size = 18, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <circle cx="0" cy="0" r="2.1" fill="#61DAFB" />
@@ -60,6 +64,8 @@ export const NodeLogo = ({ size = 18, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <path
@@ -96,6 +102,8 @@ export const MongoLogo = ({ size = 18, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <path
@@ -122,6 +130,8 @@ export const AILogo = ({ size = 18, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <path
@@ -146,6 +156,8 @@ export const SocketLogo = ({ size = 18, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <circle cx="12" cy="12" r="10.5" fill="#010101" stroke="#0A0D14" strokeWidth="1.2" />
@@ -165,6 +177,8 @@ export const StripeLogo = ({ size = 18, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <rect x="2" y="4" width="20" height="16" rx="3.5" fill="#635BFF" stroke="#0A0D14" strokeWidth="1.2" />
@@ -186,6 +200,8 @@ export const DockerLogo = ({ size = 18, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <path
@@ -211,6 +227,8 @@ export const AwsLogo = ({ size = 18, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <path
@@ -248,6 +266,8 @@ export const BoltIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" />
@@ -270,6 +290,8 @@ export const ClockIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <circle cx="12" cy="12" r="9" />
@@ -293,6 +315,8 @@ export const TargetIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <circle cx="12" cy="12" r="10" />
@@ -317,6 +341,8 @@ export const LockIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
@@ -340,6 +366,8 @@ export const PackageIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <line x1="16.5" y1="9.4" x2="7.5" y2="4.21" />
@@ -365,6 +393,8 @@ export const ShieldIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -387,6 +417,8 @@ export const RocketIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
@@ -408,6 +440,8 @@ export const StarIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <path d="M12 2L14.85 8.65L22 9.24L16.5 13.97L18.18 21L12 17.27L5.82 21L7.5 13.97L2 9.24L9.15 8.65L12 2Z" />
@@ -430,6 +464,8 @@ export const ToolIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
@@ -452,6 +488,8 @@ export const PinIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
@@ -475,6 +513,8 @@ export const PenIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <path d="M12 19l7-7 3 3-7 7-3-3z" />
@@ -500,6 +540,8 @@ export const CheckIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <polyline points="20 6 9 17 4 12" />
@@ -522,6 +564,8 @@ export const CrossIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <line x1="18" y1="6" x2="6" y2="18" />
@@ -541,6 +585,8 @@ export const SpeedPillarIcon = ({ size = 32, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <rect width="32" height="32" rx="8" fill="#FFE600" stroke="#0A0D14" strokeWidth="2" />
@@ -566,6 +612,8 @@ export const MernPillarIcon = ({ size = 32, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <rect width="32" height="32" rx="8" fill="#FAF9F5" stroke="#0A0D14" strokeWidth="2" />
@@ -592,6 +640,8 @@ export const AiPillarIcon = ({ size = 32, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <rect width="32" height="32" rx="8" fill="#0038FF" stroke="#0A0D14" strokeWidth="2" />
@@ -620,6 +670,8 @@ export const MailIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
@@ -640,6 +692,8 @@ export const PlusIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <line x1="12" y1="5" x2="12" y2="19" />
@@ -660,6 +714,8 @@ export const MinusIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <line x1="5" y1="12" x2="19" y2="12" />
@@ -679,9 +735,33 @@ export const TerminalIcon = ({ size = 14, className = '', ...props }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={className}
     style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
     {...props}
   >
     <polyline points="4 17 10 11 4 5" />
     <line x1="12" y1="19" x2="20" y2="19" />
+  </svg>
+);
+
+export const ArrowRightIcon = ({ size = 14, className = '', ...props }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    style={{ display: 'inline-block', verticalAlign: 'middle', flexShrink: 0 }}
+    aria-hidden="true"
+    focusable="false"
+    {...props}
+  >
+    <line x1="5" y1="12" x2="19" y2="12" />
+    <polyline points="12 5 19 12 12 19" />
   </svg>
 );

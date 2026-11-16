@@ -1,33 +1,40 @@
 .bentoSection {
-  padding: 70px 0;
+  padding: var(--space-20) 0;
 }
 
 .sectionHeader {
-  margin-bottom: 48px;
+  margin-bottom: var(--space-12);
+}
+
+.sectionTitle {
+  font-size: var(--text-display-md);
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-3);
+  line-height: var(--lh-tight);
 }
 
 .sectionSubtitle {
-  font-size: 18px;
+  font-size: var(--text-lead);
   color: var(--text-muted);
-  max-width: 620px;
-  margin-top: 12px;
-  line-height: 1.6;
+  max-width: 640px;
+  margin-top: var(--space-3);
+  line-height: var(--lh-relaxed);
 }
 
 .bentoGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  gap: var(--space-6);
 }
 
 .bentoCard {
   background: var(--bg-card);
-  border: 2px solid var(--border-main);
-  border-radius: 16px;
+  border: var(--border-width-md) solid var(--border-main);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  padding: 32px 30px;
+  padding: var(--space-8);
   position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
 .bentoCard:hover {
@@ -151,6 +158,14 @@
   color: #A7F3D0;
 }
 
+.simDemoNote {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #94A3B8;
+  font-style: italic;
+  line-height: 1.4;
+}
+
 .bigStatNumber {
   font-family: var(--font-display);
   font-size: 64px;
@@ -210,7 +225,7 @@
 
 .techPillGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: 12px;
   margin-top: 16px;
 }
@@ -241,7 +256,38 @@
 }
 
 @media (max-width: 640px) {
+  .bentoSection {
+    padding: var(--space-12) 0;
+  }
+
+  .bentoCard {
+    padding: var(--space-5);
+  }
+
   .simInputRow {
     flex-direction: column;
+  }
+
+  .simInputRow button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .bigStatNumber {
+    font-size: 52px;
+  }
+}
+
+@media (max-width: 380px) {
+  .bentoCard {
+    padding: var(--space-4);
+  }
+
+  .techPillGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .bigStatNumber {
+    font-size: 40px;
   }
 }

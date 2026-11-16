@@ -65,8 +65,14 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.tierCard:hover {
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .tierCard:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.tierCard:focus-within {
   box-shadow: var(--shadow-lg);
 }
 
@@ -106,6 +112,7 @@
   align-items: baseline;
   gap: 8px;
   margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
 .priceNum {
@@ -134,6 +141,8 @@
   padding: 6px 12px;
   border-radius: 6px;
   color: var(--text-main);
+  max-width: 100%;
+  flex-wrap: wrap;
 }
 
 .featuresList {
@@ -190,31 +199,105 @@
 }
 
 .estimatorHead {
-  margin-bottom: 32px;
+  margin-bottom: var(--space-8);
+}
+
+.estimatorTitle {
+  font-size: var(--text-display-md);
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-3);
+  line-height: var(--lh-tight);
 }
 
 .estimatorSubtitle {
-  font-size: 17px;
+  font-size: var(--text-lead);
   color: var(--text-muted);
   max-width: 600px;
-  margin-top: 10px;
+  margin-top: var(--space-2);
+  line-height: var(--lh-relaxed);
 }
 
 .estimatorGrid {
   display: grid;
-  grid-template-columns: 1.3fr 1fr;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
   gap: 32px;
 }
 
 @media (max-width: 820px) {
   .estimatorGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroSection {
+    padding: 44px 0 32px;
+  }
+
+  .tiersSection {
+    padding: 36px 0 28px;
+  }
+
+  .tierCard {
+    padding: 22px 18px;
+  }
+
+  .tierIdeal {
+    min-height: auto;
+  }
+
+  .tierAction a {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .estimatorSection {
+    padding: 28px 0;
+  }
+
+  .estimatorBox {
+    padding: 24px 18px;
+  }
+
+  .summaryCard {
+    padding: 20px 16px;
+  }
+
+  .guaranteeCard {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .tierCard {
+    padding: 18px 14px;
+  }
+
+  .priceNum {
+    font-size: 38px;
+  }
+
+  .estimatorBox {
+    padding: 18px 12px;
+  }
+
+  .moduleCard {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .summaryPrice {
+    font-size: 42px;
   }
 }
 
 .modulesCol {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  width: 100%;
 }
 
 .modulesHeader {
@@ -230,6 +313,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-width: 0;
+  width: 100%;
 }
 
 .moduleCard {
@@ -242,11 +327,20 @@
   padding: 12px 16px;
   cursor: pointer;
   transition: all 0.15s ease;
+  min-width: 0;
+  width: 100%;
 }
 
-.moduleCard:hover {
-  background: #F4F2E8;
-  transform: translateX(2px);
+@media (hover: hover) {
+  .moduleCard:hover {
+    background: #F4F2E8;
+    border-color: var(--accent-blue);
+  }
+}
+
+.moduleCard:focus-visible {
+  outline: 3px solid var(--accent-blue);
+  outline-offset: 2px;
 }
 
 .moduleCardActive {
@@ -277,12 +371,15 @@
 .moduleInfo {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  flex: 1;
 }
 
 .moduleName {
   font-size: 14px;
   font-weight: 700;
   color: var(--text-main);
+  word-break: break-word;
 }
 
 .moduleMeta {

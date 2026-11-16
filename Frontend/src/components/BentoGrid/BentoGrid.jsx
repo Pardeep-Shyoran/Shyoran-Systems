@@ -22,29 +22,29 @@ const BentoGrid = () => {
     setSimOutput(null);
     setTimeout(() => {
       setSimOutput({
-        status: '200 OK',
-        latency: '38ms',
+        status: 'SPEC ARCHITECTURE VALIDATED (SIMULATION)',
+        targetLatency: '< 50ms P99 Architecture Target',
         pipeline: [
           '✓ Fastify/Express Gateway Auth Verified',
           '✓ Vector Embeddings Computed (text-embedding-3-small)',
-          '✓ Context Retrieval from Pinecone/MongoDB Atlas',
+          '✓ Context Retrieval from MongoDB Atlas Vector Search',
           '✓ LLM Streaming Response Synthesized',
           '✓ Webhook Triggered & Client DB Updated'
         ],
         estimatedDelivery: '10 business days for complete MVP'
       });
       setIsSimulating(false);
-    }, 700);
+    }, 450);
   };
 
   return (
     <section id="bento" className={styles.bentoSection}>
       <div className="wrap">
         <div className={`${styles.sectionHeader} reveal`}>
-          <div className="badge-pill" style={{ background: '#FFE600' }}>
+          <div className="badge-pill badge-yellow">
             <span>// CAPABILITIES MATRIX</span>
           </div>
-          <h2 className="display-title" style={{ fontSize: 'clamp(32px, 5vw, 54px)', marginTop: '14px' }}>
+          <h2 className={`${styles.sectionTitle} display-title`}>
             THE HIGH-VELOCITY ENGINEERING ENGINE
           </h2>
           <p className={styles.sectionSubtitle}>
@@ -53,10 +53,10 @@ const BentoGrid = () => {
         </div>
 
         <div className={`${styles.bentoGrid} reveal`}>
-          {/* Bento Card 1: Interactive Live API Simulator */}
+          {/* Bento Card 1: Interactive Architecture Simulator */}
           <div className={`${styles.bentoCard} ${styles.bentoWide}`}>
             <div className={styles.bentoCardHead}>
-              <div className={styles.bentoBadge}>INTERACTIVE TESTBENCH</div>
+              <div className={styles.bentoBadge}>ARCHITECTURE SPEC SIMULATOR (DEMO)</div>
               <span className={styles.bentoTech}>Node.js · Fastify · OpenAI API</span>
             </div>
             <h3 className={styles.bentoTitle}>AI-Integrated Backend Architecture</h3>
@@ -77,13 +77,13 @@ const BentoGrid = () => {
                 <button 
                   onClick={handleRunSimulator}
                   disabled={isSimulating}
-                  className="btn-brutal btn-brutal-yellow"
-                  style={{ padding: '8px 18px', fontSize: '13px' }}
+                  className="btn-brutal btn-brutal-primary btn-sm"
                 >
                   {isSimulating ? 'SIMULATING...' : (
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-                      RUN PIPELINE <BoltIcon size={13} />
-                    </span>
+                    <>
+                      <span>TEST SPEC WORKFLOW</span>
+                      <BoltIcon size={13} />
+                    </>
                   )}
                 </button>
               </div>
@@ -91,8 +91,8 @@ const BentoGrid = () => {
               {simOutput && (
                 <div className={styles.simResults}>
                   <div className={styles.simResultsHeader}>
-                    <span>STATUS: {simOutput.status}</span>
-                    <span>LATENCY: {simOutput.latency}</span>
+                    <span>RESULT: {simOutput.status}</span>
+                    <span>BENCHMARK: {simOutput.targetLatency}</span>
                   </div>
                   <div className={styles.simStepList}>
                     {simOutput.pipeline.map((step, sIdx) => (
@@ -100,7 +100,10 @@ const BentoGrid = () => {
                     ))}
                   </div>
                   <div className={styles.simFooterNotice}>
-                    Estimated Ship Timeline: <strong>{simOutput.estimatedDelivery}</strong>
+                    <div>Estimated Ship Timeline: <strong>{simOutput.estimatedDelivery}</strong></div>
+                    <div className={styles.simDemoNote}>
+                      * Interactive demonstration simulating workflow execution. It does not measure active live client production servers.
+                    </div>
                   </div>
                 </div>
               )}
